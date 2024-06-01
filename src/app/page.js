@@ -1,7 +1,9 @@
 'use client'
+import { useRouter } from 'next/navigation'
 
 import { useState } from 'react';
 export default function Form() {
+  const router = useRouter()
   const [formData, setFormData] = useState({task1:"", task2:"", task3:"", task4:"", task5:"", task6:"", task7:"", task8:"", task9:"", task10:""});
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('typing');
@@ -21,6 +23,8 @@ export default function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    localStorage.setItem("tasks" , JSON.stringify(formData))
+    router.push('/quiz')
   };
 
   return (
