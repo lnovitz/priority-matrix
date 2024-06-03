@@ -20,7 +20,6 @@ export default function Form() {
       for (let j in savedTasksMinusCurrent) {
         console.log(savedTasksMinusCurrent[j])
         let b = savedTasksMinusCurrent[j]
-        things.push(`<input>{a} vs {b}</input>`)
       }
     }  
 
