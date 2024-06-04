@@ -30,6 +30,14 @@ export default function BrainDump() {
 
   function handleChoice(e) {
     console.log("testing", e.target.value)
+    let match = [currentTask, compareToTask]
+    console.log(typeof matches)
+    console.log({matches})
+    if (matches.size == 0) {
+      console.log({matches})
+      setMatches({match: match.indexOf(e.target.value)})
+      console.log({matches})
+    }
   }
 
   const addTaskComponent = (
