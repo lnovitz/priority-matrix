@@ -1,18 +1,32 @@
 'use client'
 
 import { useState } from 'react';
+
+
 export default function BrainDump() {
-  const [taskList, setTaskList] = useState([]);    
-  
-  function handleClick() {
-    alert('you clicked me omg')
-  }
+  const [taskList, setTaskList] = useState([]);
+  const [text, setText] = useState('');
 
   return (
     <>
-    <h1>Brain Dump Sort</h1>
-    <div >what's on your mind?</div>
-    <button onClick={handleClick}>Add Task</button>
+      <input
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <button onClick={() => {
+        setText('');
+        setTaskList([{
+          id: taskList.length,
+          text: text
+        }, ...taskList]);
+      }}>Add</button>
+      <ul>
+        {taskList.map(item => (
+          <li key={item.id}>
+            {item.text}
+          </li>
+        ))}
+      </ul>
     </>
   );
-  }
+}
