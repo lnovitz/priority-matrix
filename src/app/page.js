@@ -33,11 +33,17 @@ export default function BrainDump() {
     let match = [currentTask, compareToTask]
     console.log(typeof matches)
     console.log({matches})
+    let winnerIndex = match.indexOf(e.target.value);
+    let newMatch = new Map([[match, winnerIndex]]);
+    console.log({newMatch})
     if (matches.size == 0) {
-      console.log({matches})
-      setMatches({match: match.indexOf(e.target.value)})
-      console.log({matches})
+      console.log("before ", matches)
+      console.log("newMatch ", newMatch)
+      console.log("e, ", e.target.value)
+      setMatches(newMatch.get(match))
     }
+    console.log("after ", matches)
+
   }
 
   const addTaskComponent = (
