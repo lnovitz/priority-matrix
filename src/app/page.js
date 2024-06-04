@@ -28,6 +28,10 @@ export default function BrainDump() {
     setIsPrioritizing(true);
   }
 
+  function handleChoice(e) {
+    console.log("testing", e.target.value)
+  }
+
   const addTaskComponent = (
     <>
       <button onClick={createTasks}>Done, let's prioritize</button>
@@ -52,8 +56,10 @@ export default function BrainDump() {
 
   const compareComponent = (
     <>
-    <div>{currentTask}</div>
-    <div>{compareToTask}</div>
+    <h1>what task would you rather get done first?</h1>
+    <button onClick={handleChoice} value={currentTask}>Choose {currentTask}</button>
+    <br></br>
+    <button onClick={handleChoice} value={compareToTask}>Choose {compareToTask}</button>
     </>
   );
 
