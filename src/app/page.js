@@ -87,5 +87,7 @@ export default function BrainDump() {
     </>
   );
 
-  return isPrioritizing ? compareComponent : addTaskComponent;
+  const resultsComponent = (<>sorted brain dump</>);
+
+  return isPrioritizing ? (compareToTask ? compareComponent : resultsComponent) : addTaskComponent;
 }
