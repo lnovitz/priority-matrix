@@ -8,11 +8,11 @@ export default function BrainDump() {
   const [isPrioritizing, setIsPrioritizing] = useState(false);
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [compareToIndex, setCompareToIndex] = useState(0);
+  const [compareToIndex, setCompareToIndex] = useState(1);
   const [matches, setMatches] = useState(new Map)
 
   const currentTask = taskList[currentIndex];
-  const compareToTask = taskList[currentIndex+1];
+  const compareToTask = taskList[compareToIndex];
   console.log(currentTask);
   console.log(compareToTask);
 
@@ -35,14 +35,24 @@ export default function BrainDump() {
     console.log({matches})
     let winnerIndex = match.indexOf(e.target.value);
     let newMatch = new Map([[match, winnerIndex]]);
-    console.log({newMatch})
+    //console.log({newMatch})
     if (matches.size == 0) {
-      console.log("before ", matches)
+      console.log("matches size 0")
+      // console.log("before ", matches)
       console.log("newMatch ", newMatch)
-      console.log("e, ", e.target.value)
-      setMatches(newMatch.get(match))
+      console.log("newMatch.get(match) ", newMatch.get(match))
+      // console.log("e, ", e.target.value)
+      setMatches(newMatch)
+      setCompareToIndex(compareToIndex+1)
+
+    } else {
+      console.log("before ", matches)
+      let currentMatches = new Map(matches)
+      currentMatches.set(newMatch.get(match))
+      setMatches(currentMatches)
+      setCompareToIndex(compareToIndex+1)
+      console.log("after ", matches)
     }
-    console.log("after ", matches)
 
   }
 
