@@ -10,6 +10,8 @@ export default function BrainDump() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [compareToIndex, setCompareToIndex] = useState(1);
   const [matches, setMatches] = useState(new Map)
+  const [winnerCount, setWinnerCount] = useState(new Map)
+  const priorities = Object.entries(winnerCount).sort((a,b) => b[1]-a[1]) || 'unknown';
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
@@ -28,30 +30,27 @@ export default function BrainDump() {
     setIsPrioritizing(true);
   }
 
-  function handleChoice(e) {
-    console.log("testing", e.target.value)
-    let match = [currentTask, compareToTask]
-    console.log(typeof matches)
-    console.log({matches})
-    let winnerIndex = match.indexOf(e.target.value);
-    let newMatch = new Map([[match, winnerIndex]]);
-    //console.log({newMatch})
-    if (matches.size == 0) {
-      console.log("matches size 0")
-      // console.log("before ", matches)
-      console.log("newMatch ", newMatch)
-      console.log("newMatch.get(match) ", newMatch.get(match))
-      // console.log("e, ", e.target.value)
-      setMatches(newMatch)
-      setCompareToIndex(compareToIndex+1)
 
+
+  function handleChoice(e) {
+    let comparisonTasksList = [currentTask, compareToTask];
+    let winnerIndex = comparisonTasksList.indexOf(e.target.value);
+    let comparisonTasksToWinnerMap = new Map([[comparisonTasksList, winnerIndex]]);
+    if (matches.size == 0) {
+      // if matches not set, set the value to an array of choices and the winner
+      setWinnerCount(new Map([[e.target.value, 1]]));
+      setCompareToIndex(compareToIndex+1);
+      setMatches(comparisonTasksToWinnerMap);
     } else {
-      console.log("before ", matches)
-      let currentMatches = new Map(matches)
-      currentMatches.set(newMatch.get(match))
-      setMatches(currentMatches)
+      // matches is set, push the new winner Map to matches
+      let currentMatches = new Map(matches); // clones shallowly
+      currentMatches.set(comparisonTasksList, winnerIndex)
+      let currentWinnerCount =  new Map(winnerCount); // should return a number of won matches
+      currentWinnerCount.set(e.target.value, currentWinnerCount.get(e.target.value) + 1 || 1); // not sure if this works
+      setWinnerCount(currentWinnerCount);
       setCompareToIndex(compareToIndex+1)
-      console.log("after ", matches)
+      setMatches(currentMatches)
+      console.log({priorities})
     }
 
   }
@@ -87,7 +86,7 @@ export default function BrainDump() {
     </>
   );
 
-  const resultsComponent = (<>sorted brain dump</>);
+  const resultsComponent = (<>{priorities}</>);
 
   return isPrioritizing ? (compareToTask ? compareComponent : resultsComponent) : addTaskComponent;
 }
