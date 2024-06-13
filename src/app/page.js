@@ -11,14 +11,20 @@ export default function BrainDump() {
   const [compareToIndex, setCompareToIndex] = useState(1);
   const [matches, setMatches] = useState(new Map)
   const [winnerCount, setWinnerCount] = useState(new Map)
-  const priorities = Object.entries(winnerCount).sort((a,b) => b[1]-a[1]) || 'unknown';
+  const [priorities, setPriorities] = useState({})
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount)
+    let priorities = new Object([...winnerCount.entries()].sort((a, b) => b[1] - a[1]));
+    setPriorities(priorities)
   }, [winnerCount]);
+
+  useEffect(() => {
+
+  }, [matches]);
 
   // console.log(currentTask);
   // console.log(compareToTask);
@@ -47,8 +53,11 @@ export default function BrainDump() {
       // if matches not set, set the value to an array of choices and the winner
       let winnerMap = new Map([[e.target.value, 1]]);
       setWinnerCount(winnerMap);
+
       setCompareToIndex(compareToIndex+1);
+
       setMatches(comparisonTasksToWinnerMap);
+
     } else {
       // matches is set, push the new winner Map to matches
       let currentMatches = new Map(matches); // clones shallowly
