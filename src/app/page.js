@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 export default function BrainDump() {
@@ -15,17 +15,23 @@ export default function BrainDump() {
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
-  console.log(currentTask);
-  console.log(compareToTask);
 
-  console.log("length ", taskList.length)
+  useEffect(() => {
+    console.log("winnerCount is ", winnerCount)
+  }, [winnerCount]);
+
+  // console.log(currentTask);
+  // console.log(compareToTask);
+  // console.log("object.netries", Object.entries(winnerCount))
+
+  // console.log("length ", taskList.length)
 
   function createTasks() {
     const initialTasks = [];
     for (let i = 0; i < taskList.length; i++) {
       initialTasks.push(taskList[i]);
     }
-    console.log({initialTasks});
+    //console.log({initialTasks});
     localStorage.setItem("tasks", initialTasks);
     setIsPrioritizing(true);
   }
@@ -36,21 +42,27 @@ export default function BrainDump() {
     let comparisonTasksList = [currentTask, compareToTask];
     let winnerIndex = comparisonTasksList.indexOf(e.target.value);
     let comparisonTasksToWinnerMap = new Map([[comparisonTasksList, winnerIndex]]);
+    //console.log({matches})
     if (matches.size == 0) {
       // if matches not set, set the value to an array of choices and the winner
-      setWinnerCount(new Map([[e.target.value, 1]]));
+      let winnerMap = new Map([[e.target.value, 1]]);
+      setWinnerCount(winnerMap);
       setCompareToIndex(compareToIndex+1);
       setMatches(comparisonTasksToWinnerMap);
     } else {
       // matches is set, push the new winner Map to matches
       let currentMatches = new Map(matches); // clones shallowly
       currentMatches.set(comparisonTasksList, winnerIndex)
+      //console.log({currentMatches})
       let currentWinnerCount =  new Map(winnerCount); // should return a number of won matches
+      //console.log({currentWinnerCount});
+      //console.log({winnerCount});
       currentWinnerCount.set(e.target.value, currentWinnerCount.get(e.target.value) + 1 || 1); // not sure if this works
       setWinnerCount(currentWinnerCount);
-      setCompareToIndex(compareToIndex+1)
-      setMatches(currentMatches)
-      console.log({priorities})
+      //console.log({winnerCount});
+      setCompareToIndex(compareToIndex+1);
+      setMatches(currentMatches);
+      //console.log({priorities})
     }
 
   }
