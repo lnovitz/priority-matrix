@@ -138,9 +138,15 @@ export default function BrainDump() {
       <h1>
         gotta prioritize somehow... dump a task. your brain will thank you.
       </h1>
-      <button onClick={handleChoice} value={currentTask}>
-        Choose {currentTask}
-      </button>
+      <ul>
+        {ties.map((item, idx) => (
+          <li key={idx}>
+            <button onClick={() => console.log("test!")} value={item[0]}>
+              dump {item[0]}
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
   const resultsComponent = <>{priorities}</>;
@@ -148,6 +154,8 @@ export default function BrainDump() {
   return isPrioritizing
     ? currentIndex < taskList.length - 1
       ? compareComponent
+      : ties.length > 0
+      ? tiedComponent
       : resultsComponent
     : addTaskComponent;
 }
