@@ -2,6 +2,19 @@
 
 import { useState, useEffect } from "react";
 
+function getDupes(arr) {
+  // Create a map to store the occurrences of each second element
+  const occurrences = arr.reduce((acc, [_, value]) => {
+    if (!acc[value]) {
+      acc[value] = 0;
+    }
+    acc[value]++;
+    return acc;
+  }, {});
+  const duplicates = arr.filter(([_, value]) => occurrences[value] > 1);
+  return duplicates;
+}
+
 export default function BrainDump() {
   const [taskList, setTaskList] = useState([]);
   const [isPrioritizing, setIsPrioritizing] = useState(false);
@@ -11,6 +24,8 @@ export default function BrainDump() {
   const [matches, setMatches] = useState(new Map());
   const [winnerCount, setWinnerCount] = useState(new Map());
   const [priorities, setPriorities] = useState({});
+  const [ties, setTies] = useState([]);
+  const [isTied, setIsTied] = useState(false);
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
@@ -20,11 +35,17 @@ export default function BrainDump() {
   }, [compareToTask, compareToIndex]);
 
   useEffect(() => {
+    console.log("ties ", ties);
+  }, [ties]);
+
+  useEffect(() => {
     console.log("winnerCount is ", winnerCount);
     let priorities = new Object(
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
     );
     setPriorities(priorities);
+    let existingTies = getDupes([...winnerCount.entries()]);
+    setTies(existingTies);
   }, [winnerCount]);
 
   useEffect(() => {}, [matches]);
@@ -71,6 +92,10 @@ export default function BrainDump() {
     }
     if (currentIndex == taskList.length - 2) {
       console.log("current is at length end");
+      console.log(
+        "samesies",
+        [...winnerCount.entries()].sort((a, b) => b[1] == a[1])
+      );
     }
   }
 
@@ -108,6 +133,16 @@ export default function BrainDump() {
     </>
   );
 
+  const tiedComponent = (
+    <>
+      <h1>
+        gotta prioritize somehow... dump a task. your brain will thank you.
+      </h1>
+      <button onClick={handleChoice} value={currentTask}>
+        Choose {currentTask}
+      </button>
+    </>
+  );
   const resultsComponent = <>{priorities}</>;
 
   return isPrioritizing
