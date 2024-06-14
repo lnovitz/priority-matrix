@@ -7,13 +7,17 @@ export default function BrainDump() {
   const [isPrioritizing, setIsPrioritizing] = useState(false);
   const [text, setText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [compareToIndex, setCompareToIndex] = useState(1);
+  const [compareToIndex, setCompareToIndex] = useState(currentIndex + 1);
   const [matches, setMatches] = useState(new Map());
   const [winnerCount, setWinnerCount] = useState(new Map());
   const [priorities, setPriorities] = useState({});
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
+
+  useEffect(() => {
+    console.log("compareToTask ", compareToTask);
+  }, [compareToTask, compareToIndex]);
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount);
@@ -30,7 +34,6 @@ export default function BrainDump() {
     for (let i = 0; i < taskList.length; i++) {
       initialTasks.push(taskList[i]);
     }
-    //console.log({initialTasks});
     localStorage.setItem("tasks", initialTasks);
     setIsPrioritizing(true);
   }
@@ -60,6 +63,15 @@ export default function BrainDump() {
       setWinnerCount(currentWinnerCount);
       setCompareToIndex(compareToIndex + 1);
       setMatches(currentMatches);
+    }
+    if (compareToIndex == taskList.length - 1) {
+      console.log("compare is at length end");
+      setCurrentIndex(currentIndex + 1);
+      setCompareToIndex(currentIndex + 2);
+    }
+    if (currentIndex == taskList.length - 2) {
+      console.log("current is at length end");
+      setIsPrioritizing(false);
     }
   }
 
@@ -100,7 +112,7 @@ export default function BrainDump() {
   const resultsComponent = <>{priorities}</>;
 
   return isPrioritizing
-    ? compareToTask
+    ? currentIndex < taskList.length - 2
       ? compareComponent
       : resultsComponent
     : addTaskComponent;
