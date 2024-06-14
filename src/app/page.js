@@ -71,7 +71,6 @@ export default function BrainDump() {
     }
     if (currentIndex == taskList.length - 2) {
       console.log("current is at length end");
-      setIsPrioritizing(false);
     }
   }
 
@@ -112,7 +111,7 @@ export default function BrainDump() {
   const resultsComponent = <>{priorities}</>;
 
   return isPrioritizing
-    ? currentIndex < taskList.length - 2
+    ? currentIndex < taskList.length - 1
       ? compareComponent
       : resultsComponent
     : addTaskComponent;
