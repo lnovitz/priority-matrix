@@ -154,7 +154,7 @@ export default function BrainDump() {
   return isPrioritizing
     ? currentIndex < taskList.length - 1
       ? compareComponent
-      : ties.length > 0
+      : ties.length >= 3
       ? tiedComponent
       : resultsComponent
     : addTaskComponent;
