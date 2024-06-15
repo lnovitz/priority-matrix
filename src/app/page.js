@@ -103,6 +103,10 @@ export default function BrainDump() {
   }, [ties]);
 
   useEffect(() => {
+    console.log("priorities ", priorities);
+  }, [priorities]);
+
+  useEffect(() => {
     console.log("winnerCount is ", winnerCount);
     let priorities = new Object(
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
@@ -115,8 +119,17 @@ export default function BrainDump() {
   }, [winnerCount]);
 
   function handleTie(e) {
-    let dumpedValue = e.target.value;
-    console.log(dumpedValue);
+    let currentWinnerCount = new Map(winnerCount); // should return a number of won matches
+
+    currentWinnerCount.set(
+      e.target.value,
+      currentWinnerCount.get(e.target.value) - 1
+    );
+    // minus to subtract order. if there are multiple subsets of dupes,
+    // then 1 is the wrong number to use. need to get the number of points
+    // between the tied value and the next largest value divided by the number
+    // of tied items in the subset
+    setWinnerCount(currentWinnerCount);
   }
 
   function createTasks() {
