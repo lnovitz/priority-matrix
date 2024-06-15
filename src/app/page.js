@@ -74,7 +74,8 @@ function getDupes(arr) {
     // }
   }
   console.log({ dupesObject });
-  return duplicates;
+  console.log({ duplicates });
+  return dupesObject;
 }
 
 export default function BrainDump() {
@@ -97,9 +98,9 @@ export default function BrainDump() {
     //console.log("compareToTask ", compareToTask);
   }, [compareToTask, compareToIndex]);
 
-  // useEffect(() => {
-  //   console.log("ties ", ties);
-  // }, [ties]);
+  useEffect(() => {
+    console.log("ties ", ties);
+  }, [ties]);
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount);
@@ -201,28 +202,32 @@ export default function BrainDump() {
     </>
   );
 
-  const tiedComponent = (
+  const tiedComponent = ties ? (
     <>
       <h1>
         gotta prioritize somehow... dump a task. your brain will thank you.
       </h1>
       <ul>
-        {ties.map((item, idx) => (
-          <li key={idx}>
-            <button onClick={handleTie} value={item[0]}>
-              dump {item[0]}
-            </button>
-          </li>
-        ))}
+        {Object.values(ties).map((item, idx) =>
+          Object.values(item).map((i, id) => (
+            <li key={id}>
+              <button onClick={handleTie} value={i}>
+                dump {i}
+              </button>
+            </li>
+          ))
+        )}
       </ul>
     </>
+  ) : (
+    <>no ties</>
   );
   const resultsComponent = <>{priorities}</>;
 
   return isPrioritizing
     ? currentIndex < taskList.length - 1
       ? compareComponent
-      : ties.length >= 3
+      : ties
       ? tiedComponent
       : resultsComponent
     : addTaskComponent;
