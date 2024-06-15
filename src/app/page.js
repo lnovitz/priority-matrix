@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 function getDupes(arr) {
+  //debugger;
   // Create a map to store the occurrences of each second element
   const occurrences = arr.reduce((acc, [_, value]) => {
     if (!acc[value]) {
@@ -12,6 +13,28 @@ function getDupes(arr) {
     return acc;
   }, {});
   const duplicates = arr.filter(([_, value]) => occurrences[value] > 1);
+  let i = 0;
+  let dupesObject = { 0: [] };
+  duplicates.forEach((element) => {
+    //debugger;
+    console.log({ dupesObject });
+    let currentSubset = dupesObject[i];
+    if (
+      currentSubset[currentSubset.length - 1] &&
+      currentSubset[currentSubset.length - 1].includes(element[0])
+    ) {
+      dupesObject[i][currentSubset.length - 1].push(element[0]);
+    } else if (
+      currentSubset[currentSubset.length - 1] &&
+      !currentSubset[currentSubset.length - 1].includes(element[0])
+    ) {
+      i++;
+      dupesObject[i] = [element[0]];
+    } else {
+      // empty array
+      dupesObject[i].push(element[0]);
+    }
+  });
   return duplicates;
 }
 
@@ -25,7 +48,8 @@ export default function BrainDump() {
   const [winnerCount, setWinnerCount] = useState(new Map());
   const [priorities, setPriorities] = useState({});
   const [ties, setTies] = useState([]);
-  const [isTied, setIsTied] = useState(false);
+  const [dumpedPriorities, setDumpedPriorities] = useState([]);
+  const [topPriorities, setToppedPriorities] = useState([]);
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
@@ -48,7 +72,10 @@ export default function BrainDump() {
     setTies(existingTies);
   }, [winnerCount]);
 
-  useEffect(() => {}, [matches]);
+  function handleTie(e) {
+    let dumpedValue = e.target.value;
+    console.log(dumpedValue);
+  }
 
   function createTasks() {
     const initialTasks = [];
@@ -141,7 +168,7 @@ export default function BrainDump() {
       <ul>
         {ties.map((item, idx) => (
           <li key={idx}>
-            <button onClick={() => console.log("test!")} value={item[0]}>
+            <button onClick={handleTie} value={item[0]}>
               dump {item[0]}
             </button>
           </li>
