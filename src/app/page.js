@@ -14,27 +14,55 @@ function getDupes(arr) {
   }, {});
   const duplicates = arr.filter(([_, value]) => occurrences[value] > 1);
   let i = 0;
-  let dupesObject = { 0: [] };
+  let dupesObject;
+
   duplicates.forEach((element) => {
     //debugger;
-    console.log({ dupesObject });
-    let currentSubset = dupesObject[i];
-    if (
-      currentSubset[currentSubset.length - 1] &&
-      currentSubset[currentSubset.length - 1].includes(element[0])
-    ) {
-      dupesObject[i][currentSubset.length - 1].push(element[0]);
-    } else if (
-      currentSubset[currentSubset.length - 1] &&
-      !currentSubset[currentSubset.length - 1].includes(element[0])
-    ) {
-      i++;
-      dupesObject[i] = [element[0]];
-    } else {
-      // empty array
-      dupesObject[i].push(element[0]);
+
+    console.log("dupesObject loop ", dupesObject);
+    console.log("element[0] ", element[0]);
+    console.log("element[1] ", element[1]);
+    let option = element[0];
+    let count = element[1];
+    if (!dupesObject) {
+      dupesObject = { [count]: [option] };
+      next;
     }
+    //let currentSubset = dupesObject[i];
+    for (let ele in dupesObject) {
+      console.log("toString ", count);
+      console.log("ele ", ele);
+      if (count == ele) {
+        dupesObject[count].push(option);
+        console.log("woohoo push");
+        break;
+      } else {
+        dupesObject[count] = [option];
+      }
+    }
+    // if (
+    //   currentSubset[currentSubset.length - 1] &&
+    //   currentSubset[currentSubset.length - 1].includes(element[0])
+    // ) {
+    //   console.log("exists and has element");
+    //   dupesObject[i][currentSubset.length - 1].push(element[0]);
+    //   console.log({ dupesObject });
+    // } else if (
+    //   currentSubset[currentSubset.length - 1] &&
+    //   !currentSubset[currentSubset.length - 1].includes(element[0])
+    // ) {
+    //   console.log("exists and does not have element ");
+    //   i++;
+    //   dupesObject[i] = [element[0]];
+    //   console.log({ dupesObject });
+    // } else {
+    //   // empty array
+    //   console.log("I'm so empty and sad");
+    //   dupesObject[i].push(element[0]);
+    //   console.log({ dupesObject });
+    // }
   });
+  console.log({ dupesObject });
   return duplicates;
 }
 
@@ -68,8 +96,6 @@ export default function BrainDump() {
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
     );
     setPriorities(priorities);
-    let existingTies = getDupes([...winnerCount.entries()]);
-    setTies(existingTies);
   }, [winnerCount]);
 
   function handleTie(e) {
@@ -123,6 +149,8 @@ export default function BrainDump() {
         "samesies",
         [...winnerCount.entries()].sort((a, b) => b[1] == a[1])
       );
+      let existingTies = getDupes([...winnerCount.entries()]);
+      setTies(existingTies);
     }
   }
 
