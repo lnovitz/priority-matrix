@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 function getDupes(arr) {
   //debugger;
   // Create a map to store the occurrences of each second element
+  let dupesObject;
   const occurrences = arr.reduce((acc, [_, value]) => {
     if (!acc[value]) {
       acc[value] = 0;
@@ -13,31 +14,41 @@ function getDupes(arr) {
     return acc;
   }, {});
   const duplicates = arr.filter(([_, value]) => occurrences[value] > 1);
+  console.log({ duplicates });
   let i = 0;
-  let dupesObject;
 
-  duplicates.forEach((element) => {
+  for (let element in duplicates) {
     //debugger;
 
-    console.log("dupesObject loop ", dupesObject);
-    console.log("element[0] ", element[0]);
-    console.log("element[1] ", element[1]);
-    let option = element[0];
-    let count = element[1];
+    console.log("loop element ", element);
+    // console.log("option ", element[0]);
+    // console.log("count ", element[1]);
+    let option = duplicates[element][0];
+    let count = duplicates[element][1];
     if (!dupesObject) {
       dupesObject = { [count]: [option] };
-      next;
+      continue;
     }
     //let currentSubset = dupesObject[i];
     for (let ele in dupesObject) {
-      console.log("toString ", count);
+      //
+      console.log("dupes[count] ", dupesObject[count]);
       console.log("ele ", ele);
+      console.log("option ", option);
+      console.log("count ", count);
       if (count == ele) {
-        dupesObject[count].push(option);
-        console.log("woohoo push");
+        if (option in dupesObject[count]) {
+          console.log("dupes");
+          break;
+        } else {
+          console.log("woohoo push");
+          dupesObject[count].push(option);
+        }
+
         break;
       } else {
         dupesObject[count] = [option];
+        break;
       }
     }
     // if (
@@ -61,7 +72,7 @@ function getDupes(arr) {
     //   dupesObject[i].push(element[0]);
     //   console.log({ dupesObject });
     // }
-  });
+  }
   console.log({ dupesObject });
   return duplicates;
 }
@@ -83,12 +94,12 @@ export default function BrainDump() {
   const compareToTask = taskList[compareToIndex];
 
   useEffect(() => {
-    console.log("compareToTask ", compareToTask);
+    //console.log("compareToTask ", compareToTask);
   }, [compareToTask, compareToIndex]);
 
-  useEffect(() => {
-    console.log("ties ", ties);
-  }, [ties]);
+  // useEffect(() => {
+  //   console.log("ties ", ties);
+  // }, [ties]);
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount);
@@ -96,6 +107,10 @@ export default function BrainDump() {
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
     );
     setPriorities(priorities);
+    // (currentIndex == taskList.length - 2)
+    // recalculating every time match added is inefficient but maybe necessary
+    let existingTies = getDupes([...winnerCount.entries()]);
+    setTies(existingTies);
   }, [winnerCount]);
 
   function handleTie(e) {
@@ -139,19 +154,17 @@ export default function BrainDump() {
       setMatches(currentMatches);
     }
     if (compareToIndex == taskList.length - 1) {
-      console.log("compare is at length end");
+      //console.log("compare is at length end");
       setCurrentIndex(currentIndex + 1);
       setCompareToIndex(currentIndex + 2);
     }
-    if (currentIndex == taskList.length - 2) {
-      console.log("current is at length end");
-      console.log(
-        "samesies",
-        [...winnerCount.entries()].sort((a, b) => b[1] == a[1])
-      );
-      let existingTies = getDupes([...winnerCount.entries()]);
-      setTies(existingTies);
-    }
+    // if (currentIndex == taskList.length - 2) {
+    //   // console.log("current is at length end");
+    //   // console.log(
+    //   //   "samesies",
+    //   //   [...winnerCount.entries()].sort((a, b) => b[1] == a[1])
+    //   // );
+    // }
   }
 
   const addTaskComponent = (
