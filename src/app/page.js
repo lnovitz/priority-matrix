@@ -184,7 +184,7 @@ export default function BrainDump() {
   const addTaskComponent = (
     <>
       <button data-testid="prioritize-button" onClick={createTasks}>
-        Done, let's prioritize
+        Done, let&apos;s prioritize
       </button>
       <input
         data-testid="task-input"
