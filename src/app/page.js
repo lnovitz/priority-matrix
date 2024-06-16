@@ -183,9 +183,16 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
-      <button onClick={createTasks}>Done, let's prioritize</button>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <button data-testid="prioritize-button" onClick={createTasks}>
+        Done, let's prioritize
+      </button>
+      <input
+        data-testid="task-input"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
       <button
+        data-testid="task-button"
         onClick={() => {
           taskList.push(text);
           setText("");
@@ -205,11 +212,19 @@ export default function BrainDump() {
   const compareComponent = (
     <>
       <h1>what task would you rather get done first?</h1>
-      <button onClick={handleChoice} value={currentTask}>
+      <button
+        data-testid="choice1-button"
+        onClick={handleChoice}
+        value={currentTask}
+      >
         Choose {currentTask}
       </button>
       <br></br>
-      <button onClick={handleChoice} value={compareToTask}>
+      <button
+        data-testid="choice2-button"
+        onClick={handleChoice}
+        value={compareToTask}
+      >
         Choose {compareToTask}
       </button>
     </>
@@ -224,7 +239,11 @@ export default function BrainDump() {
         {Object.values(ties).map((item, idx) =>
           Object.values(item).map((i, id) => (
             <li key={id}>
-              <button onClick={handleTie} value={i}>
+              <button
+                data-testid={"dump-button-" + id}
+                onClick={handleTie}
+                value={i}
+              >
                 dump {i}
               </button>
             </li>
@@ -235,7 +254,11 @@ export default function BrainDump() {
   ) : (
     <>no ties</>
   );
-  const resultsComponent = <>{priorities}</>;
+  const resultsComponent = (
+    <>
+      <div data-testid="results">{priorities}</div>
+    </>
+  );
 
   return isPrioritizing
     ? currentIndex < taskList.length - 1
