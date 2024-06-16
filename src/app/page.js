@@ -1,4 +1,5 @@
 "use client";
+import "./globals.css"; // Import your styles
 
 import { useState, useEffect } from "react";
 
@@ -183,29 +184,41 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
-      <button data-testid="prioritize-button" onClick={createTasks}>
-        Done, let&apos;s prioritize
-      </button>
-      <input
-        data-testid="task-input"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button
-        data-testid="task-button"
-        onClick={() => {
-          taskList.push(text);
-          setText("");
-          setTaskList([...taskList]);
-        }}
-      >
-        Add
-      </button>
-      <ul>
-        {taskList.map((item, idx) => (
-          <li key={idx}>{item}</li>
-        ))}
-      </ul>
+      <div class="container mx-auto ">
+        <div class="flex items-center">
+          <input
+            class="underline decoration-dotted 
+            appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            data-testid="task-input"
+            value={text}
+            placeholder="Clean the windows"
+            onChange={(e) => setText(e.target.value)}
+          />
+          <button
+            class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+            data-testid="task-button"
+            onClick={() => {
+              taskList.push(text);
+              setText("");
+              setTaskList([...taskList]);
+            }}
+          >
+            Add Task
+          </button>
+          <button
+            class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
+            data-testid="prioritize-button"
+            onClick={createTasks}
+          >
+            Done, let&apos;s prioritize
+          </button>
+          <ul>
+            {taskList.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </>
   );
 
