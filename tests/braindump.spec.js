@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 
 test("has task add", async ({ page }) => {
   await page.goto("http://localhost:3000/");
-
+  // replace with https://lnovitz.github.io/priority-matrix/ if prod
   // Add tasks A through F
   await page.getByTestId("task-input").fill("A");
   await page.getByTestId("task-button").click();
