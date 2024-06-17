@@ -253,7 +253,7 @@ export default function BrainDump() {
           Object.values(item).map((i, id) => (
             <li key={id}>
               <button
-                data-testid={"dump-button-" + id}
+                data-testid={"dump-button-" + i[0]}
                 onClick={handleTie}
                 value={i}
               >

@@ -10,6 +10,10 @@ export class TaskList {
     this.prioritizeButton = this.page.getByTestId("prioritize-button");
     this.choice1 = this.page.getByTestId("choice1-button");
     this.choice2 = this.page.getByTestId("choice2-button");
+    this.dumpA = this.page.getByTestId("dump-button-A");
+    this.dumpB = this.page.getByTestId("dump-button-B");
+    this.dumpC = this.page.getByTestId("dump-button-C");
+    this.dumpD = this.page.getByTestId("dump-button-D");
     this.prioritizedTasks = this.page.getByTestId("results");
   }
 
