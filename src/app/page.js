@@ -185,52 +185,42 @@ export default function BrainDump() {
   const addTaskComponent = (
     <>
       <h1 class="text-2xl font-sans font-bold">Brain Dump Sort</h1>
-      <div class="grid grid-cols-4">
-        <div class="col-span-2">
-          <div class="grid grid-rows-3 grid-flow-col">
-            <div class="row-span-1">
-              <input
-                class="underline decoration-dotted 
-            appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                data-testid="task-input"
-                value={text}
-                placeholder="Clean the windows"
-                onChange={(e) => setText(e.target.value)}
-              />
-            </div>
-            <div class="row-span-1 col-span-1">
-              <button
-                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                data-testid="task-button"
-                onClick={() => {
-                  taskList.push(text);
-                  setText("");
-                  setTaskList([...taskList]);
-                }}
-              >
-                Add Task
-              </button>
-            </div>
-            <div class="row-span-1 col-span-1">
-              <button
-                class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
-                data-testid="prioritize-button"
-                onClick={createTasks}
-              >
-                Done, let&apos;s prioritize
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-span-1">
-          <ul data-testid="task-list">
-            {taskList.map((item, idx) => (
-              <li key={idx} class="font-mono text-lg text-gray-800 text-center">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <h4 class="font-sans text-slate-500	">what&apos;s on your mind?</h4>
+      <div class="flex flex-row justify-center items-center p-0 gap-4 relative">
+        <input
+          data-testid="task-input"
+          value={text}
+          placeholder="Clean the windows"
+          onChange={(e) => setText(e.target.value)}
+        />
+
+        <button
+          class="text-white p-2 flex flex-row justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
+          data-testid="task-button"
+          onClick={() => {
+            taskList.push(text);
+            setText("");
+            setTaskList([...taskList]);
+          }}
+        >
+          Add Task
+        </button>
+        <button
+          class="text-white p-2 flex flex-row justify-center bg-green-600 hover:bg-green-700  hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
+          data-testid="prioritize-button"
+          onClick={createTasks}
+        >
+          Let&apos;s go!
+        </button>
+      </div>
+      <div class="col-span-1">
+        <ul data-testid="task-list">
+          {taskList.map((item, idx) => (
+            <li key={idx} class="font-mono text-lg text-gray-800 text-center">
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
