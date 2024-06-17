@@ -10,6 +10,7 @@ export class TaskList {
     this.prioritizeButton = this.page.getByTestId("prioritize-button");
     this.choice1 = this.page.getByTestId("choice1-button");
     this.choice2 = this.page.getByTestId("choice2-button");
+    this.prioritizedTasks = this.page.getByTestId("results");
   }
 
   async goto() {
