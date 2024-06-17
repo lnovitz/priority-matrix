@@ -212,7 +212,7 @@ export default function BrainDump() {
           >
             Done, let&apos;s prioritize
           </button>
-          <ul>
+          <ul data-testid="task-list">
             {taskList.map((item, idx) => (
               <li key={idx}>{item}</li>
             ))}

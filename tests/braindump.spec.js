@@ -1,27 +1,37 @@
-const { test, expect } = require("@playwright/test");
+const base = require("@playwright/test");
+const { TaskList } = require("./task-list");
 
-test("has task add", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
-  // replace with https://lnovitz.github.io/priority-matrix/ if prod
-  // Add tasks A through F
-  await page.getByTestId("task-input").fill("A");
-  await page.getByTestId("task-button").click();
-  await page.getByTestId("task-input").fill("B");
-  await page.getByTestId("task-button").click();
-  await page.getByTestId("task-input").fill("C");
-  await page.getByTestId("task-button").click();
-  await page.getByTestId("task-input").fill("D");
-  await page.getByTestId("task-button").click();
-  await page.getByTestId("task-input").fill("E");
-  await page.getByTestId("task-button").click();
-  await page.getByTestId("task-input").fill("F");
-  await page.getByTestId("task-button").click();
+// Extend basic test by providing a "taskList" fixture
+const test = base.test.extend({
+  taskList: async ({ page }, use) => {
+    const taskList = new TaskList(page);
+    await taskList.goto();
+    await taskList.addTask("A");
+    await taskList.addTask("B");
+    await taskList.addTask("C");
+    await taskList.addTask("D");
+    await taskList.addTask("E");
+    await taskList.addTask("F");
 
-  // start prioritizing
-  await page.getByTestId("prioritize-button").click();
-  const choiceA = page.getByTestId("choice1-button").filter({ hasText: "A" });
-  const choiceB = page.getByTestId("choice2-button").filter({ hasText: "B" });
+    // use the fixture in the below tests
+    await use(taskList);
+  },
+});
 
-  await expect(choiceA).toHaveCount(1);
-  await expect(choiceB).toHaveCount(1);
+test("first page should have A and B", async ({ taskList }) => {
+  const choice1 = taskList.choice1.filter({ hasText: "A" });
+  const choice2 = taskList.choice2.filter({ hasText: "B" });
+
+  await taskList.prioritizeButton.click();
+  await base.expect(choice1).toHaveCount(1);
+  await base.expect(choice2).toHaveCount(1);
+
+  await taskList.choice1.click();
+  const page2Choice1 = taskList.choice1.filter({ hasText: "A" });
+  const page2Choice2 = taskList.choice2.filter({ hasText: "C" });
+
+  await base.expect(page2Choice1).toHaveCount(1);
+  await base.expect(page2Choice2).toHaveCount(1);
+
+  // ...
 });
