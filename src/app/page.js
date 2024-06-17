@@ -188,17 +188,17 @@ export default function BrainDump() {
         <h1 className="text-2xl font-sans font-bold">Brain Dump Sort</h1>
         <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
       </div>
-      <div className="block md:flex md:justify-between md:text-left text-center">
+      <div className="block lg:flex md:justify-between lg:text-left text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
-            className="text-wrap box-border items-center p-2 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            className="text-wrap box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Clean the windows"
             onChange={(e) => setText(e.target.value)}
           />
           <button
-            className="text-white p-2 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
+            className="text-white p-1.5 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -209,7 +209,7 @@ export default function BrainDump() {
             Add Task
           </button>
           <button
-            className="text-white p-2 justify-center bg-green-600 hover:bg-green-700  hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
+            className="text-white p-1.5 m-0.5 justify-center bg-green-600 hover:bg-green-700 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
           >
