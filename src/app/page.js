@@ -235,7 +235,12 @@ export default function BrainDump() {
 
   const compareComponent = (
     <>
-      <h1>what task would you rather get done first?</h1>
+      <div className="text-center py-8">
+        <h1 className="text-2xl font-sans font-bold">Pick one</h1>
+        <h4 className="font-sans text-slate-500">
+          what task would you rather get done first?
+        </h4>
+      </div>
       <button
         data-testid="choice1-button"
         onClick={handleChoice}
