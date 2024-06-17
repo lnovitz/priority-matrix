@@ -191,7 +191,7 @@ export default function BrainDump() {
       <div className="block md:flex md:justify-between md:text-left text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
-            className="text-wrap box-border items-center p-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            className="text-wrap box-border items-center p-2 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Clean the windows"
@@ -217,7 +217,7 @@ export default function BrainDump() {
           </button>
         </div>
         <ul
-          className="inline-block	 flex-row p-2 overflow-y-auto"
+          className="inline-block flex-row p-2 overflow-y-auto"
           data-testid="task-list"
         >
           {taskList.map((item, idx) => (
