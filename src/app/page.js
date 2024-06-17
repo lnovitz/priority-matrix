@@ -184,6 +184,7 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
+      <h1 class="text-2xl font-sans font-bold">Brain Dump Sort</h1>
       <div class="grid grid-cols-4">
         <div class="col-span-2">
           <div class="grid grid-rows-3 grid-flow-col">
