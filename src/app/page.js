@@ -184,37 +184,49 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
-      <div class="container mx-auto ">
-        <div class="flex items-center">
-          <input
-            class="underline decoration-dotted 
+      <div class="grid grid-cols-4">
+        <div class="col-span-2">
+          <div class="grid grid-rows-3 grid-flow-col">
+            <div class="row-span-1">
+              <input
+                class="underline decoration-dotted 
             appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-            data-testid="task-input"
-            value={text}
-            placeholder="Clean the windows"
-            onChange={(e) => setText(e.target.value)}
-          />
-          <button
-            class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-            data-testid="task-button"
-            onClick={() => {
-              taskList.push(text);
-              setText("");
-              setTaskList([...taskList]);
-            }}
-          >
-            Add Task
-          </button>
-          <button
-            class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
-            data-testid="prioritize-button"
-            onClick={createTasks}
-          >
-            Done, let&apos;s prioritize
-          </button>
+                data-testid="task-input"
+                value={text}
+                placeholder="Clean the windows"
+                onChange={(e) => setText(e.target.value)}
+              />
+            </div>
+            <div class="row-span-1 col-span-1">
+              <button
+                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                data-testid="task-button"
+                onClick={() => {
+                  taskList.push(text);
+                  setText("");
+                  setTaskList([...taskList]);
+                }}
+              >
+                Add Task
+              </button>
+            </div>
+            <div class="row-span-1 col-span-1">
+              <button
+                class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
+                data-testid="prioritize-button"
+                onClick={createTasks}
+              >
+                Done, let&apos;s prioritize
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-1">
           <ul data-testid="task-list">
             {taskList.map((item, idx) => (
-              <li key={idx}>{item}</li>
+              <li key={idx} class="font-mono text-lg text-gray-800 text-center">
+                {item}
+              </li>
             ))}
           </ul>
         </div>
