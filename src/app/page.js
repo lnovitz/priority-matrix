@@ -184,39 +184,46 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
-      <h1 class="text-2xl font-sans font-bold">Brain Dump Sort</h1>
-      <h4 class="font-sans text-slate-500	">what&apos;s on your mind?</h4>
-      <div class="flex flex-row justify-center items-center p-0 gap-4 relative">
-        <input
-          data-testid="task-input"
-          value={text}
-          placeholder="Clean the windows"
-          onChange={(e) => setText(e.target.value)}
-        />
-
-        <button
-          class="text-white p-2 flex flex-row justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
-          data-testid="task-button"
-          onClick={() => {
-            taskList.push(text);
-            setText("");
-            setTaskList([...taskList]);
-          }}
-        >
-          Add Task
-        </button>
-        <button
-          class="text-white p-2 flex flex-row justify-center bg-green-600 hover:bg-green-700  hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
-          data-testid="prioritize-button"
-          onClick={createTasks}
-        >
-          Let&apos;s go!
-        </button>
+      <div className="text-center py-8">
+        <h1 className="text-2xl font-sans font-bold">Brain Dump Sort</h1>
+        <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
       </div>
-      <div class="col-span-1">
+      <div className="block md:flex md:justify-between md:text-left text-center">
+        <div className="bg-white justify-center items-center p-0 gap-4 relative">
+          <input
+            className="box-border items-center p-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            data-testid="task-input"
+            value={text}
+            placeholder="Clean the windows"
+            onChange={(e) => setText(e.target.value)}
+          />
+          <button
+            className="text-white p-2 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
+            data-testid="task-button"
+            onClick={() => {
+              taskList.push(text);
+              setText("");
+              setTaskList([...taskList]);
+            }}
+          >
+            Add Task
+          </button>
+          <button
+            className="text-white p-2 justify-center bg-green-600 hover:bg-green-700  hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
+            data-testid="prioritize-button"
+            onClick={createTasks}
+          >
+            Let&apos;s go!
+          </button>
+        </div>
+      </div>
+      <div className="col-span-1">
         <ul data-testid="task-list">
           {taskList.map((item, idx) => (
-            <li key={idx} class="font-mono text-lg text-gray-800 text-center">
+            <li
+              key={idx}
+              className="font-mono text-lg text-gray-800 text-center"
+            >
               {item}
             </li>
           ))}
