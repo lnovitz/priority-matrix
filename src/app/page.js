@@ -194,7 +194,7 @@ export default function BrainDump() {
             className="text-wrap box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
-            placeholder="Clean the windows"
+            placeholder="Meditate"
             onChange={(e) => setText(e.target.value)}
           />
           <button
