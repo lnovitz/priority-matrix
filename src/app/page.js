@@ -192,20 +192,22 @@ export default function BrainDump() {
   const addTaskComponent = (
     <>
       <div className="text-center py-8">
-        <h1 className="text-2xl font-sans font-bold">Brain Dump</h1>
-        <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
+        <h1 className="text-3xl font-sans font-bold">Brain Dump</h1>
+        <h2 className="text-xl font-sans text-slate-500	">
+          what&apos;s on your mind?
+        </h2>
       </div>
       <div className="flex justify-center text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
-            className="text-wrap box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            className="text-wrap text-xl box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Meditate"
             onChange={(e) => setText(e.target.value)}
           />
           <button
-            className="text-white p-1.5 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -216,7 +218,7 @@ export default function BrainDump() {
             Add Task
           </button>
           <button
-            className="text-white p-1.5 m-0.5 justify-center bg-green-600 hover:bg-green-700 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center bg-green-600 hover:bg-green-700 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
           >
@@ -230,7 +232,7 @@ export default function BrainDump() {
           {taskList.map((item, idx) => (
             <li
               key={idx}
-              className="p-2 font-mono text-lg text-gray-800 box-border py-[10px] gap-5 border border-gray-300 rounded"
+              className="p-2 font-mono text-xl text-gray-800 box-border py-[10px] gap-5 border border-gray-300 rounded"
             >
               {item}
             </li>
@@ -243,14 +245,14 @@ export default function BrainDump() {
   const compareComponent = (
     <>
       <div className="text-center py-8">
-        <h1 className="text-2xl font-sans font-bold">Pick one</h1>
+        <h1 className="text-3xl font-sans font-bold">Pick one</h1>
         <h4 className="font-sans text-slate-500">
           what task would you rather get done first?
         </h4>
       </div>
       <div class="block grid grid-cols-2 p-2">
         <button
-          className="text-white bg-black shadow-sm rounded-lg p-2 m-2"
+          className="text-xl text-white bg-black shadow-sm rounded-lg p-2 m-2"
           data-testid="choice1-button"
           onClick={handleChoice}
           value={currentTask}
@@ -258,7 +260,7 @@ export default function BrainDump() {
           {currentTask}
         </button>
         <button
-          className="text-white bg-black shadow-sm rounded-lg p-2 m-2"
+          className="text-xl text-white bg-black shadow-sm rounded-lg p-2 m-2"
           data-testid="choice2-button"
           onClick={handleChoice}
           value={compareToTask}
@@ -272,18 +274,18 @@ export default function BrainDump() {
   const tiedComponent = ties ? (
     <>
       <div className="text-center py-8">
-        <h1 className="text-2xl font-sans font-bold">Dump it</h1>
-        <h4 className="font-sans text-slate-500">
+        <h1 className="text-3xl font-sans font-bold">Dump it</h1>
+        <h2 className="text-xl font-sans text-slate-500">
           gotta prioritize somehow... dump a task. <br></br>your brain will
           thank you.
-        </h4>
+        </h2>
         <div className="inline-block flex-row p-2 overflow-y-auto">
           <ul>
             {Object.values(ties).map((item, idx) =>
               Object.values(item).map((i, id) => (
                 <li key={id}>
                   <button
-                    className="text-white bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-red-600"
+                    className="text-xl text-white bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-red-600"
                     data-testid={"dump-button-" + i[0]}
                     onClick={handleTie}
                     value={i}
@@ -305,7 +307,7 @@ export default function BrainDump() {
   priorities.length > 0
     ? priorities.forEach((item, i) =>
         prioritiesArray.push(
-          <ol className="text-gray-500 my-1 p-1" key={i}>
+          <ol className="text-xl text-gray-500 my-1 p-1" key={i}>
             {item}
           </ol>
         )
@@ -315,7 +317,7 @@ export default function BrainDump() {
   const resultsComponent = (
     <>
       <div className="text-center py-8">
-        <h1 className="text-l font-sans font-bold">
+        <h1 className="text-xl font-sans font-bold">
           here&apos;s your brain dump, prioritized
         </h1>
         <div className="table w-full">{prioritiesArray}</div>
