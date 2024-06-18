@@ -2,6 +2,7 @@
 import "./globals.css"; // Import your styles
 
 import { useState, useEffect } from "react";
+import { useKeyPress } from "./useKeyPress";
 
 function getDupes(arr) {
   //debugger;
@@ -94,6 +95,12 @@ export default function BrainDump() {
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
+
+  const onKeyPress = (event) => {
+    console.log(`key pressed: ${event.key}`);
+  };
+
+  useKeyPress(["ArrowLeft", "ArrowRight"], onKeyPress);
 
   useEffect(() => {
     //console.log("compareToTask ", compareToTask);
