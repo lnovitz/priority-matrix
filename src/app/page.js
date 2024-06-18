@@ -96,13 +96,30 @@ export default function BrainDump() {
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
+  const taskInputRef = useRef(null);
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
 
   const onKeyPress = (event) => {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-      setFocusedButton((prev) => (prev === "addTask" ? "letsGo" : "addTask"));
+    console.log("onKeyPress", event);
+    if (event.key === "ArrowLeft") {
+      setFocusedButton((prev) =>
+        prev === "letsGo"
+          ? "addTask"
+          : prev === "taskInput"
+          ? "letsGo"
+          : "taskInput"
+      );
+    }
+    if (event.key === "ArrowRight") {
+      setFocusedButton((prev) =>
+        prev === "letsGo"
+          ? "taskInput"
+          : prev === "addTask"
+          ? "letsGo"
+          : "addTask"
+      );
     }
   };
 
@@ -111,8 +128,16 @@ export default function BrainDump() {
   useEffect(() => {
     if (focusedButton === "addTask") {
       addButtonRef.current.focus();
-    } else {
+    } else if (focusedButton === "letsGo") {
       letsGoButtonRef.current.focus();
+    } else if (focusedButton === "letsGoBlur") {
+      letsGoButtonRef.current.blur();
+    } else if (focusedButton === "addTaskBlur") {
+      addButtonRef.current.blur();
+    } else if (focusedButton === "taskInput") {
+      taskInputRef.current.focus();
+    } else if (focusedButton === "taskInputBlur") {
+      taskInputRef.current.blur();
     }
   }, [focusedButton]);
 
@@ -214,29 +239,39 @@ export default function BrainDump() {
       <div className="flex justify-center text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
+            tabindex="0"
+            ref={taskInputRef}
             className="text-wrap text-xl box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Meditate"
             onChange={(e) => setText(e.target.value)}
+            onMouseEnter={() => setFocusedButton("taskInput")}
+            onMouseLeave={() => setFocusedButton("taskInputBlur")}
           />
           <button
+            tabindex="0"
             ref={addButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black focus:bg-white focus:text-black focus:border-2 focus:border-black rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
               setText("");
               setTaskList([...taskList]);
             }}
+            onMouseEnter={() => setFocusedButton("addTask")}
+            onMouseLeave={() => setFocusedButton("addTaskBlur")}
           >
             Add Task
           </button>
           <button
+            tabindex="0"
             ref={letsGoButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center bg-green-600 hover:bg-green-700 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center bg-green-600 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 focus:bg-white focus:text-black focus:border-2 focus:border-green-600 rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
+            onMouseEnter={() => setFocusedButton("letsGo")}
+            onMouseLeave={() => setFocusedButton("letsGoBlur")}
           >
             Let&apos;s go!
           </button>
