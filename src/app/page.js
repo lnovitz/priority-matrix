@@ -121,9 +121,12 @@ export default function BrainDump() {
           : "addTask"
       );
     }
+    if (event.key === "Escape") {
+      setFocusedButton("escapeAll");
+    }
   };
 
-  useKeyPress(["ArrowLeft", "ArrowRight"], onKeyPress);
+  useKeyPress(["ArrowLeft", "ArrowRight", "Escape"], onKeyPress);
 
   useEffect(() => {
     if (focusedButton === "addTask") {
@@ -138,6 +141,10 @@ export default function BrainDump() {
       taskInputRef.current.focus();
     } else if (focusedButton === "taskInputBlur") {
       taskInputRef.current.blur();
+    } else if (focusedButton === "escapeAll") {
+      taskInputRef.current.blur();
+      addButtonRef.current.blur();
+      letsGoButtonRef.current.blur();
     }
   }, [focusedButton]);
 
@@ -252,7 +259,7 @@ export default function BrainDump() {
           <button
             tabindex="0"
             ref={addButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black focus:bg-white focus:text-black focus:border-2 focus:border-black rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -267,7 +274,7 @@ export default function BrainDump() {
           <button
             tabindex="0"
             ref={letsGoButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center bg-green-600 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 focus:bg-white focus:text-black focus:border-2 focus:border-green-600 rounded-lg"
+            className="text-xl text-white p-2 m-0.5 justify-center bg-white bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
             onMouseEnter={() => setFocusedButton("letsGo")}
