@@ -268,6 +268,7 @@ export default function BrainDump() {
             }}
             onMouseEnter={() => setFocusedButton("addTask")}
             onMouseLeave={() => setFocusedButton("addTaskBlur")}
+            disabled={text.length < 1}
           >
             Add Task
           </button>
@@ -279,6 +280,7 @@ export default function BrainDump() {
             onClick={createTasks}
             onMouseEnter={() => setFocusedButton("letsGo")}
             onMouseLeave={() => setFocusedButton("letsGoBlur")}
+            disabled={priorities.length < 3}
           >
             Let&apos;s go!
           </button>
