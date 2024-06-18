@@ -259,7 +259,7 @@ export default function BrainDump() {
           <button
             tabindex="0"
             ref={addButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
+            className="text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -274,7 +274,7 @@ export default function BrainDump() {
           <button
             tabindex="0"
             ref={letsGoButtonRef}
-            className="text-xl text-white p-2 m-0.5 justify-center bg-white bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
+            className="text-xl text-black p-2 m-0.5 justify-center bg-white bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
             onMouseEnter={() => setFocusedButton("letsGo")}
