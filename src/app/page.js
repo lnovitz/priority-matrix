@@ -294,13 +294,16 @@ export default function BrainDump() {
     <>no ties</>
   );
   const prioritiesArray = [];
-  priorities.forEach((item, i) =>
-    prioritiesArray.push(
-      <ol className="text-gray-500 my-1 p-1" key={i}>
-        {item}
-      </ol>
-    )
-  );
+
+  priorities.length > 0
+    ? priorities.forEach((item, i) =>
+        prioritiesArray.push(
+          <ol className="text-gray-500 my-1 p-1" key={i}>
+            {item}
+          </ol>
+        )
+      )
+    : null;
 
   const resultsComponent = (
     <>
