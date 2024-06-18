@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css"; // Import your styles
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useKeyPress } from "./useKeyPress";
 
 function getDupes(arr) {
@@ -92,15 +92,29 @@ export default function BrainDump() {
   const [ties, setTies] = useState([]);
   const [dumpedPriorities, setDumpedPriorities] = useState([]);
   const [topPriorities, setToppedPriorities] = useState([]);
+  const [focusedButton, setFocusedButton] = useState("addTask");
+
+  const addButtonRef = useRef(null);
+  const letsGoButtonRef = useRef(null);
 
   const currentTask = taskList[currentIndex];
   const compareToTask = taskList[compareToIndex];
 
   const onKeyPress = (event) => {
-    console.log(`key pressed: ${event.key}`);
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      setFocusedButton((prev) => (prev === "addTask" ? "letsGo" : "addTask"));
+    }
   };
 
   useKeyPress(["ArrowLeft", "ArrowRight"], onKeyPress);
+
+  useEffect(() => {
+    if (focusedButton === "addTask") {
+      addButtonRef.current.focus();
+    } else {
+      letsGoButtonRef.current.focus();
+    }
+  }, [focusedButton]);
 
   useEffect(() => {
     //console.log("compareToTask ", compareToTask);
@@ -207,6 +221,7 @@ export default function BrainDump() {
             onChange={(e) => setText(e.target.value)}
           />
           <button
+            ref={addButtonRef}
             className="text-xl text-white p-2 m-0.5 justify-center items-center gap-2 top-0 bg-black hover:bg-white hover:text-black hover:border-2 hover:border-black rounded-lg"
             data-testid="task-button"
             onClick={() => {
@@ -218,6 +233,7 @@ export default function BrainDump() {
             Add Task
           </button>
           <button
+            ref={letsGoButtonRef}
             className="text-xl text-white p-2 m-0.5 justify-center bg-green-600 hover:bg-green-700 hover:bg-white hover:text-black hover:border-2 hover:border-green-600 rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
