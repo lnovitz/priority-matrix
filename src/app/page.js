@@ -92,7 +92,7 @@ export default function BrainDump() {
   const [ties, setTies] = useState([]);
   const [dumpedPriorities, setDumpedPriorities] = useState([]);
   const [topPriorities, setToppedPriorities] = useState([]);
-  const [focusedButton, setFocusedButton] = useState("addTask");
+  const [focusedButton, setFocusedButton] = useState("taskInput");
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
