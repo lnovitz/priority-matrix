@@ -192,7 +192,7 @@ export default function BrainDump() {
   const addTaskComponent = (
     <>
       <div className="text-center py-8">
-        <h1 className="text-2xl font-sans font-bold">Brain Dump Sort</h1>
+        <h1 className="text-2xl font-sans font-bold">Brain Dump</h1>
         <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
       </div>
       <div className="flex justify-center text-center">
