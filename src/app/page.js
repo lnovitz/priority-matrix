@@ -248,7 +248,7 @@ export default function BrainDump() {
           what task would you rather get done first?
         </h4>
       </div>
-      <div class="block lg:flex lg:justify-between grid grid-cols-2 p-2">
+      <div class="block grid grid-cols-2 p-2">
         <button
           className="text-white bg-black shadow-sm rounded-lg p-2 m-2"
           data-testid="choice1-button"
