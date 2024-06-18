@@ -293,9 +293,23 @@ export default function BrainDump() {
   ) : (
     <>no ties</>
   );
+  const prioritiesArray = [];
+  priorities.forEach((item, i) =>
+    prioritiesArray.push(
+      <ol className="text-gray-500 my-1 p-1" key={i}>
+        {item}
+      </ol>
+    )
+  );
+
   const resultsComponent = (
     <>
-      <div data-testid="results">{priorities}</div>
+      <div className="text-center py-8">
+        <h1 className="text-l font-sans font-bold">
+          here&apos;s your brain dump, prioritized
+        </h1>
+        <div className="table w-full">{prioritiesArray}</div>
+      </div>
     </>
   );
 
