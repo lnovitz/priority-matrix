@@ -264,24 +264,31 @@ export default function BrainDump() {
 
   const tiedComponent = ties ? (
     <>
-      <h1>
-        gotta prioritize somehow... dump a task. your brain will thank you.
-      </h1>
-      <ul>
-        {Object.values(ties).map((item, idx) =>
-          Object.values(item).map((i, id) => (
-            <li key={id}>
-              <button
-                data-testid={"dump-button-" + i[0]}
-                onClick={handleTie}
-                value={i}
-              >
-                dump {i}
-              </button>
-            </li>
-          ))
-        )}
-      </ul>
+      <div className="text-center py-8">
+        <h1 className="text-2xl font-sans font-bold">Dump it</h1>
+        <h4 className="font-sans text-slate-500">
+          gotta prioritize somehow... dump a task. <br></br>your brain will
+          thank you.
+        </h4>
+        <div className="inline-block flex-row p-2 overflow-y-auto">
+          <ul>
+            {Object.values(ties).map((item, idx) =>
+              Object.values(item).map((i, id) => (
+                <li key={id}>
+                  <button
+                    className="text-white bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-red-600"
+                    data-testid={"dump-button-" + i[0]}
+                    onClick={handleTie}
+                    value={i}
+                  >
+                    dump {i}
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      </div>
     </>
   ) : (
     <>no ties</>
