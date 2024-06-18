@@ -188,7 +188,7 @@ export default function BrainDump() {
         <h1 className="text-2xl font-sans font-bold">Brain Dump Sort</h1>
         <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
       </div>
-      <div className="block lg:flex lg:justify-between lg:text-left text-center">
+      <div className="flex justify-center text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
             className="text-wrap box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
