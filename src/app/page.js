@@ -188,7 +188,7 @@ export default function BrainDump() {
         <h1 className="text-2xl font-sans font-bold">Brain Dump Sort</h1>
         <h4 className="font-sans text-slate-500	">what&apos;s on your mind?</h4>
       </div>
-      <div className="block lg:flex md:justify-between lg:text-left text-center">
+      <div className="block lg:flex lg:justify-between lg:text-left text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
             className="text-wrap box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
@@ -241,21 +241,24 @@ export default function BrainDump() {
           what task would you rather get done first?
         </h4>
       </div>
-      <button
-        data-testid="choice1-button"
-        onClick={handleChoice}
-        value={currentTask}
-      >
-        Choose {currentTask}
-      </button>
-      <br></br>
-      <button
-        data-testid="choice2-button"
-        onClick={handleChoice}
-        value={compareToTask}
-      >
-        Choose {compareToTask}
-      </button>
+      <div class="block lg:flex lg:justify-between grid grid-cols-2 p-2">
+        <button
+          className="text-white bg-black shadow-sm rounded-lg p-2 m-2"
+          data-testid="choice1-button"
+          onClick={handleChoice}
+          value={currentTask}
+        >
+          {currentTask}
+        </button>
+        <button
+          className="text-white bg-black shadow-sm rounded-lg p-2 m-2"
+          data-testid="choice2-button"
+          onClick={handleChoice}
+          value={compareToTask}
+        >
+          {compareToTask}
+        </button>
+      </div>
     </>
   );
 
