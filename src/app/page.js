@@ -102,7 +102,6 @@ export default function BrainDump() {
   const compareToTask = taskList[compareToIndex];
 
   const onKeyPress = (event) => {
-    console.log("onKeyPress", event);
     if (event.key === "ArrowLeft") {
       setFocusedButton((prev) =>
         prev === "letsGo"
@@ -246,7 +245,6 @@ export default function BrainDump() {
       <div className="flex justify-center text-center">
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
-            tabindex="0"
             ref={taskInputRef}
             className="text-wrap text-xl box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
@@ -257,9 +255,8 @@ export default function BrainDump() {
             onMouseLeave={() => setFocusedButton("taskInputBlur")}
           />
           <button
-            tabindex="0"
             ref={addButtonRef}
-            className="text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
+            className="disabled:bg-neutral-200 text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white enabled:hover:bg-black enabled:hover:text-white border-2 enabled:border-black enabled:focus:bg-black enabled:focus:text-white rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -273,14 +270,13 @@ export default function BrainDump() {
             Add Task
           </button>
           <button
-            tabindex="0"
             ref={letsGoButtonRef}
-            className="text-xl text-black p-2 m-0.5 justify-center bg-white bg-white text-black hover:bg-black hover:text-white border-2 border-black focus:bg-black focus:text-white rounded-lg"
+            className="disabled:bg-neutral-200 text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white enabled:hover:bg-black enabled:hover:text-white border-2 enabled:border-black enabled:focus:bg-black enabled:focus:text-white rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
             onMouseEnter={() => setFocusedButton("letsGo")}
             onMouseLeave={() => setFocusedButton("letsGoBlur")}
-            disabled={priorities.length < 3}
+            disabled={taskList.length < 3}
           >
             Let&apos;s go!
           </button>
