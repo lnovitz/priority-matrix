@@ -18,6 +18,7 @@ export class TaskList {
   }
 
   async goto() {
+    // await this.page.goto("http://localhost:3000/");
     await this.page.goto("https://lnovitz.github.io/priority-matrix/");
   }
 
@@ -27,6 +28,19 @@ export class TaskList {
   async addTask(text) {
     await this.inputBox.fill(text);
     await this.addButton.click();
+  }
+
+  async prioritize() {
+    await this.page.waitForSelector('[data-testid="prioritize-button"]', {
+      state: "attached",
+      visible: true,
+    });
+    //await this.page.waitForTimeout(5000);
+    await this.prioritizeButton.click();
+  }
+
+  async waitLoad() {
+    await this.page.waitForLoadState();
   }
 
   //   /**

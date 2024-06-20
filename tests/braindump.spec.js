@@ -10,7 +10,7 @@ const test = base.test.extend({
     await taskList.addTask("B");
     await taskList.addTask("C");
     await taskList.addTask("D");
-    await taskList.prioritizeButton.click();
+    await taskList.prioritize();
     // use the fixture in the below tests
     await use(taskList);
   },
@@ -24,9 +24,17 @@ test("No ties", async ({ taskList }) => {
   await taskList.choice2.click(); // B-D -> D
   await taskList.choice1.click(); // C-D -> C
   const priorities = taskList.prioritizedTasks.filter({
-    hasText: "A3C2D1",
+    hasText: "A3",
+  });
+  const priorities2 = taskList.prioritizedTasks.filter({
+    hasText: "C2",
+  });
+  const priorities3 = taskList.prioritizedTasks.filter({
+    hasText: "D1",
   });
   await base.expect(priorities).toHaveCount(1);
+  await base.expect(priorities2).toHaveCount(1);
+  await base.expect(priorities3).toHaveCount(1);
   //await taskList.reload();
   //await base.page.reload();
   await taskList.goto("https://playwright.dev/");
@@ -48,10 +56,19 @@ test("1 tie, same value count", async ({ taskList }) => {
   // now A and D are tied
   await taskList.dumpA.click(); //A0D1C2
   // no more ties, results returned
+  console.log("taskList.prioritizedTasks ", taskList.prioritizedTasks);
   const priorities = taskList.prioritizedTasks.filter({
-    hasText: "C2D1A0",
+    hasText: "C2",
+  });
+  const priorities2 = taskList.prioritizedTasks.filter({
+    hasText: "D1",
+  });
+  const priorities3 = taskList.prioritizedTasks.filter({
+    hasText: "A0",
   });
   await base.expect(priorities).toHaveCount(1);
+  await base.expect(priorities2).toHaveCount(1);
+  await base.expect(priorities3).toHaveCount(1);
   await taskList.goto("https://playwright.dev/");
   await taskList.goto();
 });

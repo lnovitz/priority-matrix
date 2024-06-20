@@ -251,8 +251,6 @@ export default function BrainDump() {
             value={text}
             placeholder="Meditate"
             onChange={(e) => setText(e.target.value)}
-            onMouseEnter={() => setFocusedButton("taskInput")}
-            onMouseLeave={() => setFocusedButton("taskInputBlur")}
           />
           <button
             ref={addButtonRef}
@@ -263,8 +261,6 @@ export default function BrainDump() {
               setText("");
               setTaskList([...taskList]);
             }}
-            onMouseEnter={() => setFocusedButton("addTask")}
-            onMouseLeave={() => setFocusedButton("addTaskBlur")}
             disabled={text.length < 1}
           >
             Add Task
@@ -274,8 +270,6 @@ export default function BrainDump() {
             className="disabled:bg-neutral-200 text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white enabled:hover:bg-black enabled:hover:text-white border-2 enabled:border-black enabled:focus:bg-black enabled:focus:text-white rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
-            onMouseEnter={() => setFocusedButton("letsGo")}
-            onMouseLeave={() => setFocusedButton("letsGoBlur")}
             disabled={taskList.length < 3}
           >
             Let&apos;s go!
@@ -306,7 +300,7 @@ export default function BrainDump() {
           what task would you rather get done first?
         </h4>
       </div>
-      <div class="block grid grid-cols-2 p-2">
+      <div className="block grid grid-cols-2 p-2">
         <button
           className="text-xl text-white bg-black shadow-sm rounded-lg p-2 m-2"
           data-testid="choice1-button"
@@ -376,7 +370,9 @@ export default function BrainDump() {
         <h1 className="text-xl font-sans font-bold">
           here&apos;s your brain dump, prioritized
         </h1>
-        <div className="table w-full">{prioritiesArray}</div>
+        <div data-testid="results" className="table w-full">
+          {prioritiesArray}
+        </div>
       </div>
     </>
   );
