@@ -1,5 +1,6 @@
 "use client";
 import "./globals.css"; // Import your styles
+import Image from "next/image";
 
 import { useState, useEffect, useRef } from "react";
 import { useKeyPress } from "./useKeyPress";
@@ -234,6 +235,21 @@ export default function BrainDump() {
     // }
   }
 
+  function Footer() {
+    return (
+      <footer>
+        <a href="https://www.buymeacoffee.com/liano" target="_blank">
+          <Image
+            src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png"
+            alt="Buy Me A Coffee"
+            width={217}
+            height={60}
+          />
+        </a>
+      </footer>
+    );
+  }
+
   const addTaskComponent = (
     <>
       <div className="text-center py-8">
@@ -289,6 +305,7 @@ export default function BrainDump() {
           ))}
         </ul>
       </div>
+      <Footer />
     </>
   );
 
@@ -318,6 +335,7 @@ export default function BrainDump() {
           {compareToTask}
         </button>
       </div>
+      <Footer />
     </>
   );
 
@@ -348,6 +366,7 @@ export default function BrainDump() {
           </ul>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <>no ties</>
@@ -374,6 +393,7 @@ export default function BrainDump() {
           {prioritiesArray}
         </div>
       </div>
+      <Footer />
     </>
   );
 
