@@ -246,6 +246,16 @@ export default function BrainDump() {
             height={60}
           />
         </a>
+        <a href="https://discord.gg/KFUXh9CsQ4" target="_blank">
+          <button
+            className="text-xl font-semibold text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-lime-400	 rounded-lg"
+            alt="Community"
+            width={217}
+            height={60}
+          >
+            Give Feedback
+          </button>
+        </a>
       </footer>
     );
   }
