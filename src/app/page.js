@@ -277,7 +277,7 @@ export default function BrainDump() {
         <div className="bg-white justify-center items-center p-0 gap-4 relative">
           <input
             ref={taskInputRef}
-            className="text-wrap text-xl box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            className="text-wrap text-xl text-black box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Meditate"
