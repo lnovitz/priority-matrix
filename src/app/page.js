@@ -103,6 +103,11 @@ export default function BrainDump() {
   const compareToTask = taskList[compareToIndex];
 
   const onKeyPress = (event) => {
+    if (event.key === "Enter" && focusedButton === "taskInput" && text) {
+      taskList.push(text);
+      setText(text);
+      setTaskList([...taskList]);
+    }
     if (event.key === "ArrowLeft") {
       setFocusedButton((prev) =>
         prev === "letsGo"
@@ -126,7 +131,7 @@ export default function BrainDump() {
     }
   };
 
-  useKeyPress(["ArrowLeft", "ArrowRight", "Escape"], onKeyPress);
+  useKeyPress(["ArrowLeft", "ArrowRight", "Escape", "Enter"], onKeyPress);
 
   useEffect(() => {
     if (focusedButton === "addTask") {
