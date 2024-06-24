@@ -402,7 +402,10 @@ export default function BrainDump() {
   priorities.length > 0
     ? priorities.forEach((item, i) =>
         prioritiesArray.push(
-          <ol className="text-xl text-gray-500 my-1 p-1" key={i}>
+          <ol
+            className="text-xl dark:text-blue-300 text-blue-600 my-1 p-1"
+            key={i}
+          >
             {item}
           </ol>
         )
