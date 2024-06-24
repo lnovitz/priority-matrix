@@ -243,11 +243,15 @@ export default function BrainDump() {
   function Footer() {
     return (
       <footer>
-        <a href="https://www.buymeacoffee.com/liano" target="_blank">
+        <a
+          style={{ display: "block", width: "200px" }}
+          href="https://www.buymeacoffee.com/liano"
+          target="_blank"
+        >
           <Image
             src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png"
             alt="Buy Me A Coffee"
-            width={217}
+            width={200}
             height={60}
           />
         </a>
@@ -255,7 +259,7 @@ export default function BrainDump() {
           <button
             className="text-xl font-semibold text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-lime-400	 rounded-lg"
             alt="Community"
-            width={217}
+            width={200}
             height={60}
           >
             Give Feedback
@@ -267,25 +271,25 @@ export default function BrainDump() {
 
   const addTaskComponent = (
     <>
-      <div className="text-center py-8">
+      <div className="text-center py-8 ">
         <h1 className="text-3xl font-sans font-bold">Brain Dump</h1>
-        <h2 className="text-xl font-sans text-slate-500	">
+        <h2 className="text-xl font-sans text-slate-500 dark:text-slate-400">
           what&apos;s on your mind?
         </h2>
       </div>
-      <div className="flex justify-center text-center">
-        <div className="bg-white justify-center items-center p-0 gap-4 relative">
+      <div className="flex justify-center text-center dark:bg-black">
+        <div className="bg-white dark:bg-black justify-center items-center p-0 gap-4 relative">
           <input
             ref={taskInputRef}
-            className="text-wrap text-xl text-black box-border items-center p-2 m-4 left-0 top-0 bg-white border border-gray-300 shadow-sm rounded-lg"
+            className="text-wrap text-xl placeholder-blue-600 dark:placeholder-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
             data-testid="task-input"
             value={text}
-            placeholder="Meditate"
+            placeholder="Type here..."
             onChange={(e) => setText(e.target.value)}
           />
           <button
             ref={addButtonRef}
-            className="disabled:bg-neutral-200 text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white enabled:hover:bg-black enabled:hover:text-white border-2 enabled:border-black enabled:focus:bg-black enabled:focus:text-white rounded-lg"
+            className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -296,15 +300,22 @@ export default function BrainDump() {
           >
             Add Task
           </button>
-          <button
-            ref={letsGoButtonRef}
-            className="disabled:bg-neutral-200 text-xl text-black p-2 m-0.5 justify-center items-center gap-2 top-0 bg-white enabled:hover:bg-black enabled:hover:text-white border-2 enabled:border-black enabled:focus:bg-black enabled:focus:text-white rounded-lg"
-            data-testid="prioritize-button"
-            onClick={createTasks}
-            disabled={taskList.length < 3}
-          >
-            Let&apos;s go!
-          </button>
+          <div className="p-10">
+            <div class="group relative w-max">
+              <button
+                ref={letsGoButtonRef}
+                className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
+                data-testid="prioritize-button"
+                onClick={createTasks}
+                disabled={taskList.length < 3}
+              >
+                Continue
+              </button>
+              <span class="pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+                This is a button.
+              </span>
+            </div>
+          </div>
         </div>
         <ul
           className="inline-block flex-row p-2 overflow-y-auto"
@@ -313,7 +324,7 @@ export default function BrainDump() {
           {taskList.map((item, idx) => (
             <li
               key={idx}
-              className="p-2 font-mono text-xl text-gray-800 box-border py-[10px] gap-5 border border-gray-300 rounded"
+              className="p-2 font-mono text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
             >
               {item}
             </li>
