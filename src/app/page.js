@@ -281,7 +281,7 @@ export default function BrainDump() {
         <div className="bg-white dark:bg-black justify-center items-center p-0 gap-4 relative">
           <input
             ref={taskInputRef}
-            className="text-wrap text-xl placeholder-blue-600 dark:placeholder-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
+            className="text-wrap text-xl placeholder-blue-600 dark:placeholder-blue-300 dark:enabled:text-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Type here..."
