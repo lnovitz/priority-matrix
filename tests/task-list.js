@@ -15,6 +15,10 @@ export class TaskList {
     this.dumpC = this.page.getByTestId("dump-button-C");
     this.dumpD = this.page.getByTestId("dump-button-D");
     this.prioritizedTasks = this.page.getByTestId("results");
+    this.task1 = this.page.getByRole("list").nth(0);
+    this.task2 = this.page.getByRole("list").nth(1);
+    this.task3 = this.page.getByRole("list").nth(2);
+    this.task4 = this.page.getByRole("list").nth(3);
   }
 
   async goto() {

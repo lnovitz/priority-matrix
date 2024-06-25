@@ -23,14 +23,14 @@ test("No ties", async ({ taskList }) => {
   await taskList.choice2.click(); // B-C -> C
   await taskList.choice2.click(); // B-D -> D
   await taskList.choice1.click(); // C-D -> C
-  const priorities = taskList.prioritizedTasks.filter({
-    hasText: "A3",
+  const priorities = taskList.task1.filter({
+    hasText: "A",
   });
-  const priorities2 = taskList.prioritizedTasks.filter({
-    hasText: "C2",
+  const priorities2 = taskList.task2.filter({
+    hasText: "C",
   });
-  const priorities3 = taskList.prioritizedTasks.filter({
-    hasText: "D1",
+  const priorities3 = taskList.task3.filter({
+    hasText: "D",
   });
   await base.expect(priorities).toHaveCount(1);
   await base.expect(priorities2).toHaveCount(1);
@@ -57,14 +57,14 @@ test("1 tie, same value count", async ({ taskList }) => {
   await taskList.dumpA.click(); //A0D1C2
   // no more ties, results returned
   console.log("taskList.prioritizedTasks ", taskList.prioritizedTasks);
-  const priorities = taskList.prioritizedTasks.filter({
-    hasText: "C2",
+  const priorities = taskList.task1.filter({
+    hasText: "C",
   });
-  const priorities2 = taskList.prioritizedTasks.filter({
-    hasText: "D1",
+  const priorities2 = taskList.task2.filter({
+    hasText: "D",
   });
-  const priorities3 = taskList.prioritizedTasks.filter({
-    hasText: "A0",
+  const priorities3 = taskList.task3.filter({
+    hasText: "A",
   });
   await base.expect(priorities).toHaveCount(1);
   await base.expect(priorities2).toHaveCount(1);
