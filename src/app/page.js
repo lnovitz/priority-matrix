@@ -105,7 +105,7 @@ export default function BrainDump() {
   const onKeyPress = (event) => {
     if (event.key === "Enter" && focusedButton === "taskInput" && text) {
       taskList.push(text);
-      setText(text);
+      setText("");
       setTaskList([...taskList]);
     }
     if (event.key === "ArrowLeft") {
