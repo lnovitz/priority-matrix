@@ -406,7 +406,7 @@ export default function BrainDump() {
             className="text-xl dark:text-blue-300 text-blue-600 my-1 p-1"
             key={i}
           >
-            {item}
+            {item[0]}
           </ol>
         )
       )
