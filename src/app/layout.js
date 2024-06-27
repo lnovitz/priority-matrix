@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Brain Dump",
-  description: "what is on your mind?",
+  description: "what&apos;s on your mind?",
 };
 
 export default function RootLayout({ children }) {
