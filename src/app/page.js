@@ -300,36 +300,33 @@ export default function BrainDump() {
           >
             Add Task
           </button>
-          <div className="p-10">
-            <div className="group relative w-max">
-              <button
-                ref={letsGoButtonRef}
-                className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
-                data-testid="prioritize-button"
-                onClick={createTasks}
-                disabled={taskList.length < 3}
-              >
-                Continue
-              </button>
-              <span className="pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                Click here once you are done adding tasks to the list.
-              </span>
-            </div>
+          <div>
+            <ul class="list-none" data-testid="task-list">
+              {taskList.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="p-2 font-mono text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <ul
-          className="inline-block flex-row p-2 overflow-y-auto"
-          data-testid="task-list"
-        >
-          {taskList.map((item, idx) => (
-            <li
-              key={idx}
-              className="p-2 font-mono text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+        <div className="group relative w-max mt-3.5">
+          <button
+            ref={letsGoButtonRef}
+            className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
+            data-testid="prioritize-button"
+            onClick={createTasks}
+            disabled={taskList.length < 3}
+          >
+            Continue
+          </button>
+          <div className="pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+            Click here once you are done adding tasks to the list.
+          </div>
+        </div>
       </div>
       <Footer />
     </>
