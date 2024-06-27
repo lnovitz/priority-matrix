@@ -323,7 +323,7 @@ export default function BrainDump() {
           >
             Continue
           </button>
-          <div className="pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="font-mono pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100 disabled:opacity-0">
             Click here once you are done adding tasks to the list.
           </div>
         </div>
