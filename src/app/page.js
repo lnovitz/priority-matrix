@@ -320,7 +320,14 @@ export default function BrainDump() {
             className="flex  justify-center p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
           >
             {item}
-            <button className="dark:bg-slate-800 rounded">
+            <button
+              className="dark:bg-slate-800 rounded"
+              data-testid={"delete-" + idx}
+              onClick={() => {
+                taskList.splice(idx, 1);
+                setTaskList([...taskList]);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
