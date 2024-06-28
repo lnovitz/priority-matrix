@@ -313,13 +313,29 @@ export default function BrainDump() {
           </button>
         </div>
       </div>
-      <ul class="flex-col list-none text-center" data-testid="task-list">
+      <ul class="flex-col list-none text-center	" data-testid="task-list">
         {taskList.map((item, idx) => (
           <li
             key={idx}
-            className="p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
+            className="flex  justify-center p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
           >
             {item}
+            <button className="dark:bg-slate-800 rounded">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={3}
+                stroke="#ef4444"
+                className="size-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </li>
         ))}
       </ul>
