@@ -94,6 +94,12 @@ export default function BrainDump() {
   const [dumpedPriorities, setDumpedPriorities] = useState([]);
   const [topPriorities, setToppedPriorities] = useState([]);
   const [focusedButton, setFocusedButton] = useState("taskInput");
+  const [editing, setEditing] = useState(false);
+
+  const handleEditing = () => {
+    setEditing(true);
+    console.log("edit");
+  };
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
@@ -342,6 +348,51 @@ export default function BrainDump() {
                   d="M6 18 18 6M6 6l12 12"
                 />
               </svg>
+            </button>
+            <button
+              className="dark:bg-slate-800 rounded"
+              data-testid={"edit-" + idx}
+              onClick={
+                handleEditing
+                //taskList[idx] = text;
+                // setFocusedButton("textInput");
+                // if (text) {
+                //   taskList[idx] = text;
+                // }
+                // setTaskList([...taskList]);
+              }
+            >
+              {!!editing ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m4.5 12.75 6 6 9-13.5"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                  />
+                </svg>
+              )}
             </button>
           </li>
         ))}
