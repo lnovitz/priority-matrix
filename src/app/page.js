@@ -101,6 +101,7 @@ export default function BrainDump() {
     console.log("edit");
   };
 
+  const taskEditRef = useRef(null);
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
   const taskInputRef = useRef(null);
@@ -323,9 +324,16 @@ export default function BrainDump() {
         {taskList.map((item, idx) => (
           <li
             key={idx}
-            className="flex  justify-center p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
+            className="flex justify-center p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
           >
-            {item}
+            <input
+              ref={taskEditRef}
+              className="text-wrap text-md md:text-xl placeholder-blue-600 dark:placeholder-blue-300 dark:enabled:text-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
+              data-testid={"task-edit-" + idx}
+              value={item}
+              placeholder="Type here..."
+              onChange={(e) => setText(e.target.value)}
+            />
             <button
               className="dark:bg-slate-800 rounded"
               data-testid={"delete-" + idx}
@@ -352,15 +360,7 @@ export default function BrainDump() {
             <button
               className="dark:bg-slate-800 rounded"
               data-testid={"edit-" + idx}
-              onClick={
-                handleEditing
-                //taskList[idx] = text;
-                // setFocusedButton("textInput");
-                // if (text) {
-                //   taskList[idx] = text;
-                // }
-                // setTaskList([...taskList]);
-              }
+              onClick={handleEditing}
             >
               {!!editing ? (
                 <svg
