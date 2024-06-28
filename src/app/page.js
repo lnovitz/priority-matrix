@@ -281,7 +281,7 @@ export default function BrainDump() {
         <div className="bg-white dark:bg-black justify-center items-center p-0 gap-4 relative">
           <input
             ref={taskInputRef}
-            className="text-wrap text-xl placeholder-blue-600 dark:placeholder-blue-300 dark:enabled:text-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
+            className="text-wrap text-md md:text-xl placeholder-blue-600 dark:placeholder-blue-300 dark:enabled:text-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
             data-testid="task-input"
             value={text}
             placeholder="Type here..."
@@ -289,7 +289,7 @@ export default function BrainDump() {
           />
           <button
             ref={addButtonRef}
-            className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
+            className="text-md md:text-xl dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
             data-testid="task-button"
             onClick={() => {
               taskList.push(text);
@@ -300,34 +300,32 @@ export default function BrainDump() {
           >
             Add Task
           </button>
-          <div>
-            <ul class="list-none" data-testid="task-list">
-              {taskList.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="p-2 font-mono text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="group relative w-max mt-3.5">
+
+          {/* <div className="group relative w-max mt-3.5"> */}
           <button
             ref={letsGoButtonRef}
-            className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
+            className="dark:disabled:bg-slate-800 disabled:text-zinc-400 enabled:bg-blue-700 enabled:text-white dark:disabled:text-gray-500 disabled:bg-neutral-200 text-md md:text-xl dark:enabled:text-slate-800 p-2 m-0.5 justify-center items-center gap-2 top-0 dark:enabled:bg-blue-400 dark:enabled:hover:bg-blue-300 dark:enabled:border-blue-300 enabled:focus:bg-blue-300 rounded-lg"
             data-testid="prioritize-button"
             onClick={createTasks}
             disabled={taskList.length < 3}
           >
             Continue
           </button>
-          <div className="font-mono pointer-events-none absolute -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100 disabled:opacity-0">
-            Click here once you are done adding tasks to the list.
-          </div>
         </div>
       </div>
+      <ul class="flex-col list-none text-center" data-testid="task-list">
+        {taskList.map((item, idx) => (
+          <li
+            key={idx}
+            className="p-2 font-mono text-md md:text-xl dark:text-blue-300 text-blue-600 py-[10px] gap-5 rounded"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+      {/* <div className="font-mono pointer-events-none fixed -top-7 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100 disabled:opacity-0">
+            Click here once you are done adding tasks to the list.
+          </div> */}
       <Footer />
     </>
   );
