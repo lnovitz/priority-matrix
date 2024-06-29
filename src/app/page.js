@@ -95,6 +95,8 @@ export default function BrainDump() {
   const [topPriorities, setToppedPriorities] = useState([]);
   const [focusedButton, setFocusedButton] = useState("taskInput");
   const [editing, setEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState(null);
+  const [currentEdit, setCurrentEdit] = useState("");
 
   const handleEditing = () => {
     setEditing(true);
@@ -163,6 +165,10 @@ export default function BrainDump() {
   useEffect(() => {
     //console.log("compareToTask ", compareToTask);
   }, [compareToTask, compareToIndex]);
+
+  useEffect(() => {
+    console.log("im here in the edit ", editedTask);
+  }, [editedTask]);
 
   useEffect(() => {
     console.log("ties ", ties);
@@ -330,9 +336,13 @@ export default function BrainDump() {
               ref={taskEditRef}
               className="text-wrap text-md md:text-xl placeholder-blue-600 dark:placeholder-blue-300 dark:enabled:text-blue-300 enabled:text-blue-600 dark:enabled:bg-slate-800 items-center p-2 m-4 left-0 top-0 dark:bg-slate-800 bg-white rounded-lg"
               data-testid={"task-edit-" + idx}
-              value={item}
-              placeholder="Type here..."
-              onChange={(e) => setText(e.target.value)}
+              value={currentEdit}
+              placeholder={item}
+              onChange={(e) => {
+                setCurrentEdit(e.target.value);
+                setEditedTask(idx);
+                console.log("edited to ", e.target.value);
+              }}
             />
             <button
               className="dark:bg-slate-800 rounded"
