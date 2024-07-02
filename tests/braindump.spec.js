@@ -32,9 +32,15 @@ test("No ties", async ({ taskList }) => {
   const priorities3 = taskList.task3.filter({
     hasText: "D",
   });
+  const priorities4 = taskList.task3.filter({
+    hasText: "B",
+  });
+
   await base.expect(priorities).toHaveCount(1);
   await base.expect(priorities2).toHaveCount(1);
   await base.expect(priorities3).toHaveCount(1);
+  await base.expect(priorities4).toHaveCount(1);
+
   //await taskList.reload();
   //await base.page.reload();
   await taskList.goto("https://playwright.dev/");
@@ -66,9 +72,15 @@ test("1 tie, same value count", async ({ taskList }) => {
   const priorities3 = taskList.task3.filter({
     hasText: "A",
   });
+  const priorities4 = taskList.task3.filter({
+    hasText: "B",
+  });
+
   await base.expect(priorities).toHaveCount(1);
   await base.expect(priorities2).toHaveCount(1);
   await base.expect(priorities3).toHaveCount(1);
+  await base.expect(priorities4).toHaveCount(1);
+
   await taskList.goto("https://playwright.dev/");
   await taskList.goto();
 });
