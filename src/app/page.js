@@ -54,27 +54,6 @@ function getDupes(arr) {
         break;
       }
     }
-    // if (
-    //   currentSubset[currentSubset.length - 1] &&
-    //   currentSubset[currentSubset.length - 1].includes(element[0])
-    // ) {
-    //   console.log("exists and has element");
-    //   dupesObject[i][currentSubset.length - 1].push(element[0]);
-    //   console.log({ dupesObject });
-    // } else if (
-    //   currentSubset[currentSubset.length - 1] &&
-    //   !currentSubset[currentSubset.length - 1].includes(element[0])
-    // ) {
-    //   console.log("exists and does not have element ");
-    //   i++;
-    //   dupesObject[i] = [element[0]];
-    //   console.log({ dupesObject });
-    // } else {
-    //   // empty array
-    //   console.log("I'm so empty and sad");
-    //   dupesObject[i].push(element[0]);
-    //   console.log({ dupesObject });
-    // }
   }
   console.log({ dupesObject });
   console.log({ duplicates });
@@ -94,6 +73,7 @@ export default function BrainDump() {
   const [dumpedPriorities, setDumpedPriorities] = useState([]);
   const [topPriorities, setToppedPriorities] = useState([]);
   const [focusedButton, setFocusedButton] = useState("taskInput");
+  const [combos, setCombos] = useState(0);
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
@@ -222,6 +202,29 @@ export default function BrainDump() {
         e.target.value,
         currentWinnerCount.get(e.target.value) + 1 || 1
       );
+
+      if (matches.size == combos) {
+        console.log({ currentWinnerCount });
+        console.log(localStorage.getItem("tasks").split(","));
+        let tasks = localStorage.getItem("tasks").split(",");
+        let minVal = null;
+        let unchosenTasks = new Array();
+        tasks.forEach((element) => {
+          let taskVotes = currentWinnerCount.get(element);
+          if (taskVotes) {
+            // not undefined
+            if (!minVal) {
+              minVal = taskVotes;
+            } else {
+              if (taskVotes < minVal) {
+                minVal = taskVotes; // update new minimum
+              }
+            }
+          }
+        });
+        // next, add unchosen tasks to winnercount
+      }
+
       setWinnerCount(currentWinnerCount);
       setCompareToIndex(compareToIndex + 1);
       setMatches(currentMatches);
