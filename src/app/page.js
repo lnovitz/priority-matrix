@@ -5,6 +5,13 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useKeyPress } from "./useKeyPress";
 
+function calculateUniquePairs(n) {
+  if (n < 2) {
+    return 0; // There are no pairs if there are less than 2 elements
+  }
+  return (n * (n - 1)) / 2;
+}
+
 function getDupes(arr) {
   //debugger;
   // Create a map to store the occurrences of each second element
@@ -169,6 +176,8 @@ export default function BrainDump() {
     // between the tied value and the next largest value divided by the number
     // of tied items in the subset
     setWinnerCount(currentWinnerCount);
+    // TODO
+    // need to get new min val and reset the unchosen task to the min val - 1
   }
 
   function createTasks() {
@@ -178,6 +187,8 @@ export default function BrainDump() {
     }
     localStorage.setItem("tasks", initialTasks);
     setIsPrioritizing(true);
+    let n = calculateUniquePairs(initialTasks.length);
+    setCombos(n);
   }
 
   function handleChoice(e) {
@@ -202,31 +213,32 @@ export default function BrainDump() {
         e.target.value,
         currentWinnerCount.get(e.target.value) + 1 || 1
       );
+      console.log("before setting min", currentWinnerCount);
 
-      if (matches.size == combos) {
+      if (matches.size == combos - 1) {
         console.log({ currentWinnerCount });
-        console.log(localStorage.getItem("tasks").split(","));
         let tasks = localStorage.getItem("tasks").split(",");
         let minVal = null;
         let unchosenTasks = new Array();
         tasks.forEach((element) => {
           let taskVotes = currentWinnerCount.get(element);
-          if (taskVotes) {
-            // not undefined
-            if (!minVal) {
-              minVal = taskVotes;
-            } else {
-              if (taskVotes < minVal) {
-                minVal = taskVotes; // update new minimum
-              }
-            }
+          if (!minVal) {
+            minVal = taskVotes;
           } else {
-            // next, add unchosen tasks to winnercount
-            currentWinnerCount.set(element, minVal - 1);
+            if (!taskVotes) {
+              unchosenTasks.push(element);
+              console.log({ unchosenTasks });
+            }
+            if (taskVotes && taskVotes < minVal) {
+              minVal = taskVotes; // update new minimum
+            }
           }
         });
-        // next, add unchosen tasks to winnercount
+        unchosenTasks.forEach((element) => {
+          currentWinnerCount.set(element, minVal - 1);
+        });
       }
+      console.log("after setting min", currentWinnerCount);
 
       setWinnerCount(currentWinnerCount);
       setCompareToIndex(compareToIndex + 1);
