@@ -220,6 +220,9 @@ export default function BrainDump() {
                 minVal = taskVotes; // update new minimum
               }
             }
+          } else {
+            // next, add unchosen tasks to winnercount
+            currentWinnerCount.set(element, minVal - 1);
           }
         });
         // next, add unchosen tasks to winnercount
