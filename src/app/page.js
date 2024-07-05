@@ -77,10 +77,10 @@ export default function BrainDump() {
   const [winnerCount, setWinnerCount] = useState(new Map());
   const [priorities, setPriorities] = useState({});
   const [ties, setTies] = useState([]);
-  const [dumpedPriorities, setDumpedPriorities] = useState([]);
-  const [topPriorities, setToppedPriorities] = useState([]);
   const [focusedButton, setFocusedButton] = useState("taskInput");
   const [combos, setCombos] = useState(0);
+  const [min, setMin] = useState(null);
+  const [unchosenTasks, setUnchosenTasks] = useState([]);
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
@@ -153,7 +153,29 @@ export default function BrainDump() {
   }, [priorities]);
 
   useEffect(() => {
+    console.log("min ", min);
+  }, [min]);
+
+  useEffect(() => {
     console.log("winnerCount is ", winnerCount);
+    let tasks = localStorage.getItem("tasks").split(",");
+    let unchosenTasksList = new Array();
+    tasks.forEach((element) => {
+      let taskVotes = winnerCount.get(element);
+      if (min == undefined) {
+        setMin(taskVotes);
+      } else {
+        if (!taskVotes) {
+          unchosenTasksList.push(element);
+          console.log({ unchosenTasks });
+          setMin(0);
+        }
+        if (taskVotes && taskVotes < min) {
+          setMin(taskVotes); // update new minimum
+        }
+      }
+    });
+    setUnchosenTasks(unchosenTasksList);
     let priorities = new Object(
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
     );
@@ -217,25 +239,9 @@ export default function BrainDump() {
 
       if (matches.size == combos - 1) {
         console.log({ currentWinnerCount });
-        let tasks = localStorage.getItem("tasks").split(",");
-        let minVal = null;
-        let unchosenTasks = new Array();
-        tasks.forEach((element) => {
-          let taskVotes = currentWinnerCount.get(element);
-          if (!minVal) {
-            minVal = taskVotes;
-          } else {
-            if (!taskVotes) {
-              unchosenTasks.push(element);
-              console.log({ unchosenTasks });
-            }
-            if (taskVotes && taskVotes < minVal) {
-              minVal = taskVotes; // update new minimum
-            }
-          }
-        });
+
         unchosenTasks.forEach((element) => {
-          currentWinnerCount.set(element, minVal - 1);
+          currentWinnerCount.set(element, min - 1);
         });
       }
       console.log("after setting min", currentWinnerCount);
