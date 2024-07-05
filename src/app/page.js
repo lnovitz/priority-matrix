@@ -162,30 +162,32 @@ export default function BrainDump() {
       ? localStorage.getItem("tasks").split(",")
       : undefined;
     let unchosenTasksList = new Array();
-    tasks.forEach((element) => {
-      let taskVotes = winnerCount.get(element);
-      if (min == undefined) {
-        setMin(taskVotes);
-      } else {
-        if (!taskVotes) {
-          unchosenTasksList.push(element);
-          console.log({ unchosenTasks });
-          setMin(0);
+    if (tasks) {
+      tasks.forEach((element) => {
+        let taskVotes = winnerCount.get(element);
+        if (min == undefined) {
+          setMin(taskVotes);
+        } else {
+          if (!taskVotes) {
+            unchosenTasksList.push(element);
+            console.log({ unchosenTasks });
+            setMin(0);
+          }
+          if (taskVotes && taskVotes < min) {
+            setMin(taskVotes); // update new minimum
+          }
         }
-        if (taskVotes && taskVotes < min) {
-          setMin(taskVotes); // update new minimum
-        }
-      }
-    });
-    setUnchosenTasks(unchosenTasksList);
-    let priorities = new Object(
-      [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
-    );
-    setPriorities(priorities);
-    // (currentIndex == taskList.length - 2)
-    // recalculating every time match added is inefficient but maybe necessary
-    let existingTies = getDupes([...winnerCount.entries()]);
-    setTies(existingTies);
+      });
+      setUnchosenTasks(unchosenTasksList);
+      let priorities = new Object(
+        [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
+      );
+      setPriorities(priorities);
+      // (currentIndex == taskList.length - 2)
+      // recalculating every time match added is inefficient but maybe necessary
+      let existingTies = getDupes([...winnerCount.entries()]);
+      setTies(existingTies);
+    }
   }, [winnerCount]);
 
   function handleTie(e) {
