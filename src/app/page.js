@@ -341,7 +341,7 @@ export default function BrainDump() {
           </button>
         </div>
       </div>
-      <ul class="flex-col list-none text-center" data-testid="task-list">
+      <ul className="flex-col list-none text-center" data-testid="task-list">
         {taskList.map((item, idx) => (
           <li
             key={idx}
