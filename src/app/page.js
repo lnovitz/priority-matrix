@@ -164,21 +164,26 @@ export default function BrainDump() {
     let unchosenTasksList = new Array();
     if (tasks) {
       tasks.forEach((element) => {
+        console.log({ element });
         let taskVotes = winnerCount.get(element);
-        if (min == undefined) {
-          setMin(taskVotes);
-        } else {
-          if (!taskVotes) {
-            unchosenTasksList.push(element);
-            console.log({ unchosenTasks });
+
+        if (!taskVotes) {
+          unchosenTasksList.push(element);
+          console.log({ unchosenTasks });
+          setUnchosenTasks(unchosenTasksList);
+          if (min > 0) {
             setMin(0);
           }
-          if (taskVotes && taskVotes < min) {
-            setMin(taskVotes); // update new minimum
+        } else {
+          if (min == undefined) {
+            setMin(taskVotes);
           }
         }
+        if (taskVotes && taskVotes < min) {
+          setMin(taskVotes); // update new minimum
+        }
       });
-      setUnchosenTasks(unchosenTasksList);
+
       let priorities = new Object(
         [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
       );
