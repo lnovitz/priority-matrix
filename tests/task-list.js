@@ -1,6 +1,7 @@
 export class TaskList {
   /**
    * @param {import('@playwright/test').Page} page
+   * @param {import('@playwright/errors').TimeoutError} timeoutError
    */
   constructor(page) {
     this.page = page;
@@ -25,7 +26,7 @@ export class TaskList {
     try {
       await this.page.goto("http://localhost:3000/");
     } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError) {
+      if (error instanceof timeoutError) {
         console.log("Timeout!");
         await this.page.goto("https://lnovitz.github.io/priority-matrix/");
       } else {
