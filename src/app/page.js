@@ -158,7 +158,9 @@ export default function BrainDump() {
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount);
-    let tasks = localStorage.getItem("tasks").split(",");
+    let tasks = localStorage.getItem("tasks")
+      ? localStorage.getItem("tasks").split(",")
+      : undefined;
     let unchosenTasksList = new Array();
     tasks.forEach((element) => {
       let taskVotes = winnerCount.get(element);
