@@ -5,6 +5,13 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useKeyPress } from "./useKeyPress";
 
+function calculateUniquePairs(n) {
+  if (n < 2) {
+    return 0; // There are no pairs if there are less than 2 elements
+  }
+  return (n * (n - 1)) / 2;
+}
+
 function getDupes(arr) {
   //debugger;
   // Create a map to store the occurrences of each second element
@@ -54,27 +61,6 @@ function getDupes(arr) {
         break;
       }
     }
-    // if (
-    //   currentSubset[currentSubset.length - 1] &&
-    //   currentSubset[currentSubset.length - 1].includes(element[0])
-    // ) {
-    //   console.log("exists and has element");
-    //   dupesObject[i][currentSubset.length - 1].push(element[0]);
-    //   console.log({ dupesObject });
-    // } else if (
-    //   currentSubset[currentSubset.length - 1] &&
-    //   !currentSubset[currentSubset.length - 1].includes(element[0])
-    // ) {
-    //   console.log("exists and does not have element ");
-    //   i++;
-    //   dupesObject[i] = [element[0]];
-    //   console.log({ dupesObject });
-    // } else {
-    //   // empty array
-    //   console.log("I'm so empty and sad");
-    //   dupesObject[i].push(element[0]);
-    //   console.log({ dupesObject });
-    // }
   }
   console.log({ dupesObject });
   console.log({ duplicates });
@@ -91,9 +77,10 @@ export default function BrainDump() {
   const [winnerCount, setWinnerCount] = useState(new Map());
   const [priorities, setPriorities] = useState({});
   const [ties, setTies] = useState([]);
-  const [dumpedPriorities, setDumpedPriorities] = useState([]);
-  const [topPriorities, setToppedPriorities] = useState([]);
   const [focusedButton, setFocusedButton] = useState("taskInput");
+  const [combos, setCombos] = useState(0);
+  const [min, setMin] = useState(null);
+  const [unchosenTasks, setUnchosenTasks] = useState([]);
 
   const addButtonRef = useRef(null);
   const letsGoButtonRef = useRef(null);
@@ -166,7 +153,29 @@ export default function BrainDump() {
   }, [priorities]);
 
   useEffect(() => {
+    console.log("min ", min);
+  }, [min]);
+
+  useEffect(() => {
     console.log("winnerCount is ", winnerCount);
+    let tasks = localStorage.getItem("tasks").split(",");
+    let unchosenTasksList = new Array();
+    tasks.forEach((element) => {
+      let taskVotes = winnerCount.get(element);
+      if (min == undefined) {
+        setMin(taskVotes);
+      } else {
+        if (!taskVotes) {
+          unchosenTasksList.push(element);
+          console.log({ unchosenTasks });
+          setMin(0);
+        }
+        if (taskVotes && taskVotes < min) {
+          setMin(taskVotes); // update new minimum
+        }
+      }
+    });
+    setUnchosenTasks(unchosenTasksList);
     let priorities = new Object(
       [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
     );
@@ -189,6 +198,8 @@ export default function BrainDump() {
     // between the tied value and the next largest value divided by the number
     // of tied items in the subset
     setWinnerCount(currentWinnerCount);
+    // TODO
+    // need to get new min val and reset the unchosen task to the min val - 1
   }
 
   function createTasks() {
@@ -198,6 +209,8 @@ export default function BrainDump() {
     }
     localStorage.setItem("tasks", initialTasks);
     setIsPrioritizing(true);
+    let n = calculateUniquePairs(initialTasks.length);
+    setCombos(n);
   }
 
   function handleChoice(e) {
@@ -222,6 +235,17 @@ export default function BrainDump() {
         e.target.value,
         currentWinnerCount.get(e.target.value) + 1 || 1
       );
+      console.log("before setting min", currentWinnerCount);
+
+      if (matches.size == combos - 1) {
+        console.log({ currentWinnerCount });
+
+        unchosenTasks.forEach((element) => {
+          currentWinnerCount.set(element, min - 1);
+        });
+      }
+      console.log("after setting min", currentWinnerCount);
+
       setWinnerCount(currentWinnerCount);
       setCompareToIndex(compareToIndex + 1);
       setMatches(currentMatches);
