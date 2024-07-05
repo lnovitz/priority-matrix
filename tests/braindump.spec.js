@@ -32,7 +32,7 @@ test("No ties", async ({ taskList }) => {
   const priorities3 = taskList.task3.filter({
     hasText: "D",
   });
-  const priorities4 = taskList.task3.filter({
+  const priorities4 = taskList.task4.filter({
     hasText: "B",
   });
 
@@ -72,7 +72,7 @@ test("1 tie, same value count", async ({ taskList }) => {
   const priorities3 = taskList.task3.filter({
     hasText: "A",
   });
-  const priorities4 = taskList.task3.filter({
+  const priorities4 = taskList.task4.filter({
     hasText: "B",
   });
 

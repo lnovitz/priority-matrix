@@ -22,8 +22,16 @@ export class TaskList {
   }
 
   async goto() {
-    // await this.page.goto("http://localhost:3000/");
-    await this.page.goto("https://lnovitz.github.io/priority-matrix/");
+    try {
+      await this.page.goto("http://localhost:3000/");
+    } catch (error) {
+      if (error instanceof playwright.errors.TimeoutError) {
+        console.log("Timeout!");
+        await this.page.goto("https://lnovitz.github.io/priority-matrix/");
+      } else {
+        console.log({ error });
+      }
+    }
   }
 
   /**

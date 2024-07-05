@@ -158,32 +158,41 @@ export default function BrainDump() {
 
   useEffect(() => {
     console.log("winnerCount is ", winnerCount);
-    let tasks = localStorage.getItem("tasks").split(",");
+    let tasks = localStorage.getItem("tasks")
+      ? localStorage.getItem("tasks").split(",")
+      : undefined;
     let unchosenTasksList = new Array();
-    tasks.forEach((element) => {
-      let taskVotes = winnerCount.get(element);
-      if (min == undefined) {
-        setMin(taskVotes);
-      } else {
+    if (tasks) {
+      tasks.forEach((element) => {
+        console.log({ element });
+        let taskVotes = winnerCount.get(element);
+
         if (!taskVotes) {
           unchosenTasksList.push(element);
           console.log({ unchosenTasks });
-          setMin(0);
+          setUnchosenTasks(unchosenTasksList);
+          if (min > 0) {
+            setMin(0);
+          }
+        } else {
+          if (min == undefined) {
+            setMin(taskVotes);
+          }
         }
         if (taskVotes && taskVotes < min) {
           setMin(taskVotes); // update new minimum
         }
-      }
-    });
-    setUnchosenTasks(unchosenTasksList);
-    let priorities = new Object(
-      [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
-    );
-    setPriorities(priorities);
-    // (currentIndex == taskList.length - 2)
-    // recalculating every time match added is inefficient but maybe necessary
-    let existingTies = getDupes([...winnerCount.entries()]);
-    setTies(existingTies);
+      });
+
+      let priorities = new Object(
+        [...winnerCount.entries()].sort((a, b) => b[1] - a[1])
+      );
+      setPriorities(priorities);
+      // (currentIndex == taskList.length - 2)
+      // recalculating every time match added is inefficient but maybe necessary
+      let existingTies = getDupes([...winnerCount.entries()]);
+      setTies(existingTies);
+    }
   }, [winnerCount]);
 
   function handleTie(e) {
@@ -337,7 +346,7 @@ export default function BrainDump() {
           </button>
         </div>
       </div>
-      <ul class="flex-col list-none text-center" data-testid="task-list">
+      <ul className="flex-col list-none text-center" data-testid="task-list">
         {taskList.map((item, idx) => (
           <li
             key={idx}
