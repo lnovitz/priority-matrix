@@ -449,6 +449,46 @@ export default function BrainDump() {
         <div data-testid="results" className="table w-full">
           {prioritiesArray}
         </div>
+        <div>
+          <button className="text-xl text-white bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+            Copy List
+          </button>
+          <br></br>
+          <button className="text-xl text-white bg-black shadow-sm rounded-lg p-2 hover:bg-green-600">
+            Create New List
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-4 mx-28">
+          <button className="bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+            <Image
+              src="/arrow_back_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="image"
+              width="25"
+              height="25"
+            />
+          </button>
+          <button className="bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+            <Image
+              src="/arrow_forward_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="image"
+              width="25"
+              height="25"
+            />
+          </button>
+          <button className="bg-black shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+            <Image
+              src="/sync_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="image"
+              width="25"
+              height="25"
+            />
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-4 pb-24 mx-28">
+          <div>Load Previous</div>
+          <div>Load Next</div>
+          <div>Load Newest</div>
+        </div>
       </div>
       <Footer />
     </>
