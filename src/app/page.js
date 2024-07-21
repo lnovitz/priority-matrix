@@ -327,6 +327,7 @@ export default function BrainDump() {
             onClick={() => {
               taskList.push(text);
               setText("");
+              setFocusedButton("taskInput");
               setTaskList([...taskList]);
             }}
             disabled={text.length < 1}
