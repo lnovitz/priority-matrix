@@ -141,6 +141,10 @@ export default function BrainDump() {
   }, [focusedButton]);
 
   useEffect(() => {
+    taskInputRef.current.focus();
+  }, [taskList]);
+
+  useEffect(() => {
     //console.log("compareToTask ", compareToTask);
   }, [compareToTask, compareToIndex]);
 
