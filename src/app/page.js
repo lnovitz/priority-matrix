@@ -464,7 +464,10 @@ export default function BrainDump() {
           </button>
         </div>
         <div className="grid grid-cols-3 gap-2 mx-28 justify-items-center">
-          <button className="bg-blue-700 md:w-1/6 shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+          <button
+            data-testid="button--load-previous-list"
+            className="bg-blue-700 md:w-1/6 shadow-sm rounded-lg p-2 m-2 hover:bg-green-600"
+          >
             <Image
               src="/arrow_back_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
               alt="image"
@@ -472,7 +475,10 @@ export default function BrainDump() {
               height="25"
             />
           </button>
-          <button className="bg-blue-700 md:w-1/6	shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+          <button
+            data-testid="button--load-next-list"
+            className="bg-blue-700 md:w-1/6	shadow-sm rounded-lg p-2 m-2 hover:bg-green-600"
+          >
             <Image
               src="/arrow_forward_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
               alt="image"
@@ -480,7 +486,10 @@ export default function BrainDump() {
               height="25"
             />
           </button>
-          <button className="bg-blue-700 md:w-1/6 shadow-sm rounded-lg p-2 m-2 hover:bg-green-600">
+          <button
+            data-testid="button--load-latest-list"
+            className="bg-blue-700 md:w-1/6 shadow-sm rounded-lg p-2 m-2 hover:bg-green-600"
+          >
             <Image
               src="/sync_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg"
               alt="image"
