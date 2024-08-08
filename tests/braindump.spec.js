@@ -84,3 +84,65 @@ test("1 tie, same value count", async ({ taskList }) => {
   await taskList.goto("https://playwright.dev/");
   await taskList.goto();
 });
+
+test("Load latest list", async ({ taskList }) => {
+  await page.evaluate(() => window.localStorage);
+  console.log(storage);
+  await page.evaluate(setLocalStorage);
+
+  await taskList.loadLatestListButton.click();
+
+  const priorities = taskList.task1.filter({
+    hasText: "A",
+  });
+  await base.expect(priorities).toHaveCount(1);
+
+  //await taskList.reload();
+  //await base.page.reload();
+  await taskList.goto("https://playwright.dev/");
+  await taskList.goto();
+});
+
+test("Load previous list", async ({ taskList }) => {
+  await page.evaluate(() => window.localStorage);
+  console.log(storage);
+  await page.evaluate(setLocalStorage);
+
+  await taskList.loadPreviousListButton.click();
+
+  const priorities = taskList.task1.filter({
+    hasText: "D",
+  });
+  await base.expect(priorities).toHaveCount(1);
+
+  //await taskList.reload();
+  //await base.page.reload();
+  await taskList.goto("https://playwright.dev/");
+  await taskList.goto();
+});
+
+test("Load next list", async ({ taskList }) => {
+  await page.evaluate(() => window.localStorage);
+  console.log(storage);
+  await page.evaluate(setLocalStorage);
+  // current list is A, B, C
+  await taskList.loadNextList.click();
+
+  const priorities = taskList.task1.filter({
+    hasText: "G",
+  });
+  await base.expect(priorities).toHaveCount(1);
+
+  //await taskList.reload();
+  //await base.page.reload();
+  await taskList.goto("https://playwright.dev/");
+  await taskList.goto();
+});
+
+function setLocalStorage() {
+  localStorage.setItem("tasks", [
+    ["A", "B", "C"],
+    ["D", "E", "F"],
+    ["G", "H", "I"], // last list is always the latest. stack
+  ]);
+}
